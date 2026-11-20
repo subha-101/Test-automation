@@ -18,7 +18,7 @@ TEMPLATE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "templat
 
 @dataclass
 class CodegenReport:
-    notes: list = field(default_factory=list)      # assumptions the reader of the test file must know
+    notes: list = field(default_factory=list)      # assumptions shown by the UI
     blocked: list = field(default_factory=list)    # scenarios that could not be generated, with reason
 
 
@@ -138,7 +138,7 @@ def generate_test_file(ir: FunctionIR, cfg: ProjectConfig, result: GenerationRes
                              keep_trailing_newline=True, undefined=jinja2.StrictUndefined)
     text = env.get_template("cpputest_test.cpp.j2").render(
         function=ir.name, group=cfg.test_group or ir.name, includes=cfg.includes, strategies=", ".join(x for x in ("branch", "condition", "boundary") if x in result.strategies),
-        scenarios=ctxs, notes=report.notes, emit_group=cfg.emit_test_group)
+        scenarios=ctxs, emit_group=cfg.emit_test_group)
     # collapse the blank lines the template leaves when a section is empty
     out, blank = [], 0
     for ln in text.split("\n"):

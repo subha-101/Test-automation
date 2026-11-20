@@ -59,6 +59,7 @@ generated mocks do not write through pointers), short-circuit mock calls in `if`
 float-to-integer conversions up to 32 bits, and CppUTest's inline `mock_c()->actualCall("label")->returnIntValueOrDefault(...)`
 pattern. A straight-line function gets a test for its observable effects even if it has no coverage targets.
 
+Generation notes are shown on the GUI's **Code generation** page, not in the downloaded file header.
 Functions with scalar function-local statics are modeled from their C initializers only. UTG validation
 runs each such case in a fresh process. For downloaded tests, run one case per process with CppUTest
 `-st <group>.<test>`; running all cases in one process does not reset local static state.
