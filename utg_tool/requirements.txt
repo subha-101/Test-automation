@@ -1,0 +1,6 @@
+libclang==18.1.1      # Clang AST (python bindings + bundled libclang.so); no system clang required
+z3-solver>=4.12       # SMT solver for path constraints and input generation
+Jinja2>=3.1           # CppUTest templates
+streamlit>=1.30       # GUI
+pandas                # tables in the GUI (installed with streamlit)
+pytest>=7             # the application's own tests

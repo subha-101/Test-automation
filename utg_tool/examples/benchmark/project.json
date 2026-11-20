@@ -1,0 +1,14 @@
+{
+  "source_file": "test/mock/lsout11/source.c",
+  "headers": ["src/bsw/pal/types.h", "prelude.h", "test/mock/lsout11/source.h"],
+  "include_dirs": ["src"],
+  "defines": ["UNIT_TESTING"],
+  "target": "armv7m-none-eabi",
+  "prelude_file": "",
+  "includes": ["#include \"CppUTest/TestHarness.h\"", "#include \"CppUTestExt/MockSupport.h\""],
+  "static_access": "pointer",
+  "pointer_pattern": "*p_{name}",
+  "strict_order": true,
+  "verify_params": true,
+  "struct_return": "pointer"
+}

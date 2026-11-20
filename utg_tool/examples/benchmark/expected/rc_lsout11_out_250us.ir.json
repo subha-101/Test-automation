@@ -1,0 +1,5131 @@
+{
+  "name": "rc_lsout11_out_250us",
+  "return_type": {
+    "spelling": "RC",
+    "canonical": "RC",
+    "kind": "enum",
+    "bits": 32,
+    "signed": true,
+    "is_const": false,
+    "enumerators": {
+      "RC_SUCCESS": 0,
+      "RC_ERROR": -1,
+      "RC_ERROR_NULL": -2,
+      "RC_ERROR_ZERO": -3,
+      "RC_ERROR_MEMORY": -4,
+      "RC_ERROR_RANGE": -5,
+      "RC_ERROR_OVERRUN": -6,
+      "RC_ERROR_UNDERRUN": -7,
+      "RC_ERROR_BUFFER_FULL": -8,
+      "RC_ERROR_BUFFER_EMTPY": -9,
+      "RC_ERROR_BUSY": -10,
+      "RC_ERROR_TIME_OUT": -11,
+      "RC_ERROR_OPEN": -12,
+      "RC_ERROR_CHECKSUM": -13,
+      "RC_ERROR_READ_ONLY": -14,
+      "RC_ERROR_WRITE_ONLY": -15,
+      "RC_ERROR_INVALID": -16,
+      "RC_ERROR_READ_FAILS": -17,
+      "RC_ERROR_WRITE_FAILS": -18,
+      "RC_ERROR_NOT_MATCH": -19,
+      "RC_ERROR_FILE_ACCESS": -21,
+      "RC_ERROR_FILE_SIZE_UNDERRUN": -22,
+      "RC_ERROR_FILE_SIZE_OVERRUN": -23,
+      "RC_ERROR_VERIFY": -24,
+      "RC_ERROR_NOT_FOUND": -25,
+      "RC_ERROR_WRITE_INVALID_LENGTH": -26
+    },
+    "fields": []
+  },
+  "args": [],
+  "signature": "RC rc_lsout11_out_250us(void)",
+  "loc": {
+    "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+    "line": 1,
+    "col": 4
+  },
+  "variables": {
+    "b_LSOut11_250us": {
+      "name": "b_LSOut11_250us",
+      "type": {
+        "spelling": "BO",
+        "canonical": "unsigned char",
+        "kind": "int",
+        "bits": 8,
+        "signed": false,
+        "is_const": false,
+        "enumerators": {},
+        "fields": []
+      },
+      "scope": "local",
+      "is_const": false,
+      "initial_value": 0,
+      "decl_loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 4,
+        "col": 7
+      },
+      "read": true,
+      "written": true,
+      "read_before_write": false,
+      "conditionally_written": false,
+      "role": "internal",
+      "is_pointer": false,
+      "test_access": ""
+    },
+    "f32_CuLSOut11": {
+      "name": "f32_CuLSOut11",
+      "type": {
+        "spelling": "F32",
+        "canonical": "float",
+        "kind": "float",
+        "bits": 32,
+        "signed": null,
+        "is_const": false,
+        "enumerators": {},
+        "fields": []
+      },
+      "scope": "static",
+      "is_const": false,
+      "initial_value": null,
+      "decl_loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/prelude.h",
+        "line": 9,
+        "col": 12
+      },
+      "read": true,
+      "written": true,
+      "read_before_write": false,
+      "conditionally_written": false,
+      "role": "output",
+      "is_pointer": false,
+      "test_access": "pointer"
+    },
+    "f32_LSOut11Short": {
+      "name": "f32_LSOut11Short",
+      "type": {
+        "spelling": "F32",
+        "canonical": "float",
+        "kind": "float",
+        "bits": 32,
+        "signed": null,
+        "is_const": false,
+        "enumerators": {},
+        "fields": []
+      },
+      "scope": "static",
+      "is_const": false,
+      "initial_value": null,
+      "decl_loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/prelude.h",
+        "line": 10,
+        "col": 12
+      },
+      "read": true,
+      "written": false,
+      "read_before_write": true,
+      "conditionally_written": false,
+      "role": "input",
+      "is_pointer": false,
+      "test_access": "pointer"
+    },
+    "u8_time_LSOut11Short": {
+      "name": "u8_time_LSOut11Short",
+      "type": {
+        "spelling": "U8",
+        "canonical": "unsigned char",
+        "kind": "int",
+        "bits": 8,
+        "signed": false,
+        "is_const": false,
+        "enumerators": {},
+        "fields": []
+      },
+      "scope": "static",
+      "is_const": false,
+      "initial_value": null,
+      "decl_loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/prelude.h",
+        "line": 11,
+        "col": 12
+      },
+      "read": true,
+      "written": true,
+      "read_before_write": true,
+      "conditionally_written": false,
+      "role": "state",
+      "is_pointer": false,
+      "test_access": "pointer"
+    },
+    "u8_MaxTime_LSOut11Short": {
+      "name": "u8_MaxTime_LSOut11Short",
+      "type": {
+        "spelling": "U8",
+        "canonical": "unsigned char",
+        "kind": "int",
+        "bits": 8,
+        "signed": false,
+        "is_const": false,
+        "enumerators": {},
+        "fields": []
+      },
+      "scope": "static",
+      "is_const": false,
+      "initial_value": null,
+      "decl_loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/prelude.h",
+        "line": 12,
+        "col": 12
+      },
+      "read": true,
+      "written": false,
+      "read_before_write": true,
+      "conditionally_written": false,
+      "role": "input",
+      "is_pointer": false,
+      "test_access": "pointer"
+    },
+    "f32_CuLSOut11Short": {
+      "name": "f32_CuLSOut11Short",
+      "type": {
+        "spelling": "F32",
+        "canonical": "float",
+        "kind": "float",
+        "bits": 32,
+        "signed": null,
+        "is_const": false,
+        "enumerators": {},
+        "fields": []
+      },
+      "scope": "static",
+      "is_const": false,
+      "initial_value": null,
+      "decl_loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/prelude.h",
+        "line": 13,
+        "col": 12
+      },
+      "read": true,
+      "written": true,
+      "read_before_write": true,
+      "conditionally_written": true,
+      "role": "state",
+      "is_pointer": false,
+      "test_access": "pointer"
+    },
+    "f32_LSOut11CurrH": {
+      "name": "f32_LSOut11CurrH",
+      "type": {
+        "spelling": "F32",
+        "canonical": "float",
+        "kind": "float",
+        "bits": 32,
+        "signed": null,
+        "is_const": false,
+        "enumerators": {},
+        "fields": []
+      },
+      "scope": "static",
+      "is_const": false,
+      "initial_value": null,
+      "decl_loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/prelude.h",
+        "line": 14,
+        "col": 12
+      },
+      "read": true,
+      "written": false,
+      "read_before_write": true,
+      "conditionally_written": false,
+      "role": "input",
+      "is_pointer": false,
+      "test_access": "pointer"
+    },
+    "u8_time_LSOut11CurrH": {
+      "name": "u8_time_LSOut11CurrH",
+      "type": {
+        "spelling": "U8",
+        "canonical": "unsigned char",
+        "kind": "int",
+        "bits": 8,
+        "signed": false,
+        "is_const": false,
+        "enumerators": {},
+        "fields": []
+      },
+      "scope": "static",
+      "is_const": false,
+      "initial_value": null,
+      "decl_loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/prelude.h",
+        "line": 15,
+        "col": 12
+      },
+      "read": true,
+      "written": true,
+      "read_before_write": true,
+      "conditionally_written": false,
+      "role": "state",
+      "is_pointer": false,
+      "test_access": "pointer"
+    },
+    "u8_MaxTime_LSOut11CurrH": {
+      "name": "u8_MaxTime_LSOut11CurrH",
+      "type": {
+        "spelling": "U8",
+        "canonical": "unsigned char",
+        "kind": "int",
+        "bits": 8,
+        "signed": false,
+        "is_const": false,
+        "enumerators": {},
+        "fields": []
+      },
+      "scope": "static",
+      "is_const": false,
+      "initial_value": null,
+      "decl_loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/prelude.h",
+        "line": 16,
+        "col": 12
+      },
+      "read": true,
+      "written": false,
+      "read_before_write": true,
+      "conditionally_written": false,
+      "role": "input",
+      "is_pointer": false,
+      "test_access": "pointer"
+    },
+    "f32_CuLSOut11CurrH": {
+      "name": "f32_CuLSOut11CurrH",
+      "type": {
+        "spelling": "F32",
+        "canonical": "float",
+        "kind": "float",
+        "bits": 32,
+        "signed": null,
+        "is_const": false,
+        "enumerators": {},
+        "fields": []
+      },
+      "scope": "static",
+      "is_const": false,
+      "initial_value": null,
+      "decl_loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/prelude.h",
+        "line": 17,
+        "col": 12
+      },
+      "read": true,
+      "written": true,
+      "read_before_write": true,
+      "conditionally_written": true,
+      "role": "state",
+      "is_pointer": false,
+      "test_access": "pointer"
+    },
+    "b_LSOut11_10ms": {
+      "name": "b_LSOut11_10ms",
+      "type": {
+        "spelling": "BO",
+        "canonical": "unsigned char",
+        "kind": "int",
+        "bits": 8,
+        "signed": false,
+        "is_const": false,
+        "enumerators": {},
+        "fields": []
+      },
+      "scope": "static",
+      "is_const": false,
+      "initial_value": null,
+      "decl_loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/prelude.h",
+        "line": 18,
+        "col": 12
+      },
+      "read": true,
+      "written": false,
+      "read_before_write": true,
+      "conditionally_written": false,
+      "role": "input",
+      "is_pointer": false,
+      "test_access": "pointer"
+    }
+  },
+  "calls": {
+    "sig_hwc_rx_cu_meas_11_get": {
+      "name": "sig_hwc_rx_cu_meas_11_get",
+      "return_type": {
+        "spelling": "volt_ratio_physical_t",
+        "canonical": "volt_ratio_physical_t",
+        "kind": "struct",
+        "bits": 0,
+        "signed": null,
+        "is_const": false,
+        "enumerators": {},
+        "fields": [
+          [
+            "physical",
+            {
+              "spelling": "F32",
+              "canonical": "float",
+              "kind": "float",
+              "bits": 32,
+              "signed": null,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            }
+          ]
+        ]
+      },
+      "params": [],
+      "call_sites": [
+        {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 10,
+          "col": 22
+        }
+      ],
+      "conditional": false,
+      "requires_mock": true,
+      "return_used": true,
+      "void_cast": false,
+      "result_members": [
+        "physical"
+      ]
+    },
+    "sig_hwc_tx_LS11_set": {
+      "name": "sig_hwc_tx_LS11_set",
+      "return_type": {
+        "spelling": "VO",
+        "canonical": "void",
+        "kind": "void",
+        "bits": 0,
+        "signed": null,
+        "is_const": false,
+        "enumerators": {},
+        "fields": []
+      },
+      "params": [
+        [
+          "b_LSOut11_250us",
+          {
+            "spelling": "BO",
+            "canonical": "unsigned char",
+            "kind": "int",
+            "bits": 8,
+            "signed": false,
+            "is_const": false,
+            "enumerators": {},
+            "fields": []
+          }
+        ]
+      ],
+      "call_sites": [
+        {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 76,
+          "col": 9
+        }
+      ],
+      "conditional": false,
+      "requires_mock": true,
+      "return_used": false,
+      "void_cast": false,
+      "result_members": []
+    },
+    "sig_hwc_tx_LS11_flush": {
+      "name": "sig_hwc_tx_LS11_flush",
+      "return_type": {
+        "spelling": "VO",
+        "canonical": "void",
+        "kind": "void",
+        "bits": 0,
+        "signed": null,
+        "is_const": false,
+        "enumerators": {},
+        "fields": []
+      },
+      "params": [],
+      "call_sites": [
+        {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 77,
+          "col": 9
+        }
+      ],
+      "conditional": false,
+      "requires_mock": true,
+      "return_used": false,
+      "void_cast": false,
+      "result_members": []
+    }
+  },
+  "conditions": [
+    {
+      "id": "C1",
+      "text": "f32_LSOut11Short <= f32_CuLSOut11",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 16,
+        "col": 9
+      },
+      "expr": {
+        "kind": "binary",
+        "type": {
+          "spelling": "int",
+          "canonical": "int",
+          "kind": "int",
+          "bits": 32,
+          "signed": true,
+          "is_const": false,
+          "enumerators": {},
+          "fields": []
+        },
+        "text": "f32_LSOut11Short <= f32_CuLSOut11",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 16,
+          "col": 9
+        },
+        "op": "<=",
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": false,
+        "children": [
+          {
+            "kind": "var_ref",
+            "type": {
+              "spelling": "F32",
+              "canonical": "float",
+              "kind": "float",
+              "bits": 32,
+              "signed": null,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "f32_LSOut11Short",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 16,
+              "col": 9
+            },
+            "op": null,
+            "name": "f32_LSOut11Short",
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": []
+          },
+          {
+            "kind": "var_ref",
+            "type": {
+              "spelling": "F32",
+              "canonical": "float",
+              "kind": "float",
+              "bits": 32,
+              "signed": null,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "f32_CuLSOut11",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 16,
+              "col": 29
+            },
+            "op": null,
+            "name": "f32_CuLSOut11",
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": []
+          }
+        ]
+      },
+      "atoms": [
+        {
+          "id": "C1.a1",
+          "text": "f32_LSOut11Short <= f32_CuLSOut11",
+          "op": "<=",
+          "expr": {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "f32_LSOut11Short <= f32_CuLSOut11",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 16,
+              "col": 9
+            },
+            "op": "<=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_LSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 16,
+                  "col": 9
+                },
+                "op": null,
+                "name": "f32_LSOut11Short",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 16,
+                  "col": 29
+                },
+                "op": null,
+                "name": "f32_CuLSOut11",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          },
+          "vars": [
+            "f32_LSOut11Short",
+            "f32_CuLSOut11"
+          ]
+        }
+      ],
+      "logical_ops": [],
+      "vars": [
+        "f32_LSOut11Short",
+        "f32_CuLSOut11"
+      ],
+      "true_branch": [
+        "u8_time_LSOut11Short ++"
+      ],
+      "false_branch": [
+        "u8_time_LSOut11Short = 0"
+      ],
+      "has_else": true
+    },
+    {
+      "id": "C2",
+      "text": "( u8_MaxTime_LSOut11Short <= u8_time_LSOut11Short ) && ( 0.0f == f32_CuLSOut11Short )",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 25,
+        "col": 12
+      },
+      "expr": {
+        "kind": "binary",
+        "type": {
+          "spelling": "int",
+          "canonical": "int",
+          "kind": "int",
+          "bits": 32,
+          "signed": true,
+          "is_const": false,
+          "enumerators": {},
+          "fields": []
+        },
+        "text": "( u8_MaxTime_LSOut11Short <= u8_time_LSOut11Short ) && ( 0.0f == f32_CuLSOut11Short )",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 25,
+          "col": 12
+        },
+        "op": "&&",
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": false,
+        "children": [
+          {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "u8_MaxTime_LSOut11Short <= u8_time_LSOut11Short",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 25,
+              "col": 14
+            },
+            "op": "<=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_MaxTime_LSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 25,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "U8",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "u8_MaxTime_LSOut11Short",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 25,
+                      "col": 14
+                    },
+                    "op": null,
+                    "name": "u8_MaxTime_LSOut11Short",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_time_LSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 25,
+                  "col": 41
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "U8",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "u8_time_LSOut11Short",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 25,
+                      "col": 41
+                    },
+                    "op": null,
+                    "name": "u8_time_LSOut11Short",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "0.0f == f32_CuLSOut11Short",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 26,
+              "col": 14
+            },
+            "op": "==",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "float_lit",
+                "type": {
+                  "spelling": "float",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "0.0f",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 26,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": 0.0,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 26,
+                  "col": 22
+                },
+                "op": null,
+                "name": "f32_CuLSOut11Short",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "atoms": [
+        {
+          "id": "C2.a1",
+          "text": "u8_MaxTime_LSOut11Short <= u8_time_LSOut11Short",
+          "op": "<=",
+          "expr": {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "u8_MaxTime_LSOut11Short <= u8_time_LSOut11Short",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 25,
+              "col": 14
+            },
+            "op": "<=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_MaxTime_LSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 25,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "U8",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "u8_MaxTime_LSOut11Short",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 25,
+                      "col": 14
+                    },
+                    "op": null,
+                    "name": "u8_MaxTime_LSOut11Short",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_time_LSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 25,
+                  "col": 41
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "U8",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "u8_time_LSOut11Short",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 25,
+                      "col": 41
+                    },
+                    "op": null,
+                    "name": "u8_time_LSOut11Short",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          "vars": [
+            "u8_MaxTime_LSOut11Short",
+            "u8_time_LSOut11Short"
+          ]
+        },
+        {
+          "id": "C2.a2",
+          "text": "0.0f == f32_CuLSOut11Short",
+          "op": "==",
+          "expr": {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "0.0f == f32_CuLSOut11Short",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 26,
+              "col": 14
+            },
+            "op": "==",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "float_lit",
+                "type": {
+                  "spelling": "float",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "0.0f",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 26,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": 0.0,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 26,
+                  "col": 22
+                },
+                "op": null,
+                "name": "f32_CuLSOut11Short",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          },
+          "vars": [
+            "f32_CuLSOut11Short"
+          ]
+        }
+      ],
+      "logical_ops": [
+        "&&"
+      ],
+      "vars": [
+        "u8_MaxTime_LSOut11Short",
+        "u8_time_LSOut11Short",
+        "f32_CuLSOut11Short"
+      ],
+      "true_branch": [
+        "f32_CuLSOut11Short = f32_CuLSOut11"
+      ],
+      "false_branch": [],
+      "has_else": false
+    },
+    {
+      "id": "C3",
+      "text": "f32_LSOut11CurrH <= f32_CuLSOut11",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 36,
+        "col": 9
+      },
+      "expr": {
+        "kind": "binary",
+        "type": {
+          "spelling": "int",
+          "canonical": "int",
+          "kind": "int",
+          "bits": 32,
+          "signed": true,
+          "is_const": false,
+          "enumerators": {},
+          "fields": []
+        },
+        "text": "f32_LSOut11CurrH <= f32_CuLSOut11",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 36,
+          "col": 9
+        },
+        "op": "<=",
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": false,
+        "children": [
+          {
+            "kind": "var_ref",
+            "type": {
+              "spelling": "F32",
+              "canonical": "float",
+              "kind": "float",
+              "bits": 32,
+              "signed": null,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "f32_LSOut11CurrH",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 36,
+              "col": 9
+            },
+            "op": null,
+            "name": "f32_LSOut11CurrH",
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": []
+          },
+          {
+            "kind": "var_ref",
+            "type": {
+              "spelling": "F32",
+              "canonical": "float",
+              "kind": "float",
+              "bits": 32,
+              "signed": null,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "f32_CuLSOut11",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 36,
+              "col": 29
+            },
+            "op": null,
+            "name": "f32_CuLSOut11",
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": []
+          }
+        ]
+      },
+      "atoms": [
+        {
+          "id": "C3.a1",
+          "text": "f32_LSOut11CurrH <= f32_CuLSOut11",
+          "op": "<=",
+          "expr": {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "f32_LSOut11CurrH <= f32_CuLSOut11",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 36,
+              "col": 9
+            },
+            "op": "<=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_LSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 36,
+                  "col": 9
+                },
+                "op": null,
+                "name": "f32_LSOut11CurrH",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 36,
+                  "col": 29
+                },
+                "op": null,
+                "name": "f32_CuLSOut11",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          },
+          "vars": [
+            "f32_LSOut11CurrH",
+            "f32_CuLSOut11"
+          ]
+        }
+      ],
+      "logical_ops": [],
+      "vars": [
+        "f32_LSOut11CurrH",
+        "f32_CuLSOut11"
+      ],
+      "true_branch": [
+        "u8_time_LSOut11CurrH ++"
+      ],
+      "false_branch": [
+        "u8_time_LSOut11CurrH = 0"
+      ],
+      "has_else": true
+    },
+    {
+      "id": "C4",
+      "text": "( u8_MaxTime_LSOut11CurrH <= u8_time_LSOut11CurrH ) && ( 0.0f == f32_CuLSOut11CurrH )",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 45,
+        "col": 12
+      },
+      "expr": {
+        "kind": "binary",
+        "type": {
+          "spelling": "int",
+          "canonical": "int",
+          "kind": "int",
+          "bits": 32,
+          "signed": true,
+          "is_const": false,
+          "enumerators": {},
+          "fields": []
+        },
+        "text": "( u8_MaxTime_LSOut11CurrH <= u8_time_LSOut11CurrH ) && ( 0.0f == f32_CuLSOut11CurrH )",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 45,
+          "col": 12
+        },
+        "op": "&&",
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": false,
+        "children": [
+          {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "u8_MaxTime_LSOut11CurrH <= u8_time_LSOut11CurrH",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 45,
+              "col": 14
+            },
+            "op": "<=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_MaxTime_LSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 45,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "U8",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "u8_MaxTime_LSOut11CurrH",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 45,
+                      "col": 14
+                    },
+                    "op": null,
+                    "name": "u8_MaxTime_LSOut11CurrH",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_time_LSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 45,
+                  "col": 41
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "U8",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "u8_time_LSOut11CurrH",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 45,
+                      "col": 41
+                    },
+                    "op": null,
+                    "name": "u8_time_LSOut11CurrH",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "0.0f == f32_CuLSOut11CurrH",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 46,
+              "col": 14
+            },
+            "op": "==",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "float_lit",
+                "type": {
+                  "spelling": "float",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "0.0f",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 46,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": 0.0,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 46,
+                  "col": 22
+                },
+                "op": null,
+                "name": "f32_CuLSOut11CurrH",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "atoms": [
+        {
+          "id": "C4.a1",
+          "text": "u8_MaxTime_LSOut11CurrH <= u8_time_LSOut11CurrH",
+          "op": "<=",
+          "expr": {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "u8_MaxTime_LSOut11CurrH <= u8_time_LSOut11CurrH",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 45,
+              "col": 14
+            },
+            "op": "<=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_MaxTime_LSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 45,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "U8",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "u8_MaxTime_LSOut11CurrH",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 45,
+                      "col": 14
+                    },
+                    "op": null,
+                    "name": "u8_MaxTime_LSOut11CurrH",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_time_LSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 45,
+                  "col": 41
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "U8",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "u8_time_LSOut11CurrH",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 45,
+                      "col": 41
+                    },
+                    "op": null,
+                    "name": "u8_time_LSOut11CurrH",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          "vars": [
+            "u8_MaxTime_LSOut11CurrH",
+            "u8_time_LSOut11CurrH"
+          ]
+        },
+        {
+          "id": "C4.a2",
+          "text": "0.0f == f32_CuLSOut11CurrH",
+          "op": "==",
+          "expr": {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "0.0f == f32_CuLSOut11CurrH",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 46,
+              "col": 14
+            },
+            "op": "==",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "float_lit",
+                "type": {
+                  "spelling": "float",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "0.0f",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 46,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": 0.0,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 46,
+                  "col": 22
+                },
+                "op": null,
+                "name": "f32_CuLSOut11CurrH",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          },
+          "vars": [
+            "f32_CuLSOut11CurrH"
+          ]
+        }
+      ],
+      "logical_ops": [
+        "&&"
+      ],
+      "vars": [
+        "u8_MaxTime_LSOut11CurrH",
+        "u8_time_LSOut11CurrH",
+        "f32_CuLSOut11CurrH"
+      ],
+      "true_branch": [
+        "f32_CuLSOut11CurrH = f32_CuLSOut11"
+      ],
+      "false_branch": [],
+      "has_else": false
+    },
+    {
+      "id": "C5",
+      "text": "( 0.0f != f32_CuLSOut11CurrH ) || ( 0.0f != f32_CuLSOut11Short )",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 56,
+        "col": 12
+      },
+      "expr": {
+        "kind": "binary",
+        "type": {
+          "spelling": "int",
+          "canonical": "int",
+          "kind": "int",
+          "bits": 32,
+          "signed": true,
+          "is_const": false,
+          "enumerators": {},
+          "fields": []
+        },
+        "text": "( 0.0f != f32_CuLSOut11CurrH ) || ( 0.0f != f32_CuLSOut11Short )",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 56,
+          "col": 12
+        },
+        "op": "||",
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": false,
+        "children": [
+          {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "0.0f != f32_CuLSOut11CurrH",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 56,
+              "col": 14
+            },
+            "op": "!=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "float_lit",
+                "type": {
+                  "spelling": "float",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "0.0f",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 56,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": 0.0,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 56,
+                  "col": 22
+                },
+                "op": null,
+                "name": "f32_CuLSOut11CurrH",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          },
+          {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "0.0f != f32_CuLSOut11Short",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 57,
+              "col": 14
+            },
+            "op": "!=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "float_lit",
+                "type": {
+                  "spelling": "float",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "0.0f",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 57,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": 0.0,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 57,
+                  "col": 22
+                },
+                "op": null,
+                "name": "f32_CuLSOut11Short",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "atoms": [
+        {
+          "id": "C5.a1",
+          "text": "0.0f != f32_CuLSOut11CurrH",
+          "op": "!=",
+          "expr": {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "0.0f != f32_CuLSOut11CurrH",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 56,
+              "col": 14
+            },
+            "op": "!=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "float_lit",
+                "type": {
+                  "spelling": "float",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "0.0f",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 56,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": 0.0,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 56,
+                  "col": 22
+                },
+                "op": null,
+                "name": "f32_CuLSOut11CurrH",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          },
+          "vars": [
+            "f32_CuLSOut11CurrH"
+          ]
+        },
+        {
+          "id": "C5.a2",
+          "text": "0.0f != f32_CuLSOut11Short",
+          "op": "!=",
+          "expr": {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "0.0f != f32_CuLSOut11Short",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 57,
+              "col": 14
+            },
+            "op": "!=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "float_lit",
+                "type": {
+                  "spelling": "float",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "0.0f",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 57,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": 0.0,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 57,
+                  "col": 22
+                },
+                "op": null,
+                "name": "f32_CuLSOut11Short",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          },
+          "vars": [
+            "f32_CuLSOut11Short"
+          ]
+        }
+      ],
+      "logical_ops": [
+        "||"
+      ],
+      "vars": [
+        "f32_CuLSOut11CurrH",
+        "f32_CuLSOut11Short"
+      ],
+      "true_branch": [
+        "b_LSOut11_250us = FALSE"
+      ],
+      "false_branch": [
+        "if ( FALSE != b_LSOut11_10ms )"
+      ],
+      "has_else": true
+    },
+    {
+      "id": "C6",
+      "text": "FALSE != b_LSOut11_10ms",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 64,
+        "col": 12
+      },
+      "expr": {
+        "kind": "binary",
+        "type": {
+          "spelling": "int",
+          "canonical": "int",
+          "kind": "int",
+          "bits": 32,
+          "signed": true,
+          "is_const": false,
+          "enumerators": {},
+          "fields": []
+        },
+        "text": "FALSE != b_LSOut11_10ms",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 64,
+          "col": 12
+        },
+        "op": "!=",
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": false,
+        "children": [
+          {
+            "kind": "int_lit",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "FALSE",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 64,
+              "col": 12
+            },
+            "op": null,
+            "name": null,
+            "value": 0,
+            "prefix": false,
+            "implicit": false,
+            "children": []
+          },
+          {
+            "kind": "cast",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "b_LSOut11_10ms",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 64,
+              "col": 21
+            },
+            "op": null,
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": true,
+            "children": [
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "BO",
+                  "canonical": "unsigned char",
+                  "kind": "int",
+                  "bits": 8,
+                  "signed": false,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "b_LSOut11_10ms",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 64,
+                  "col": 21
+                },
+                "op": null,
+                "name": "b_LSOut11_10ms",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "atoms": [
+        {
+          "id": "C6.a1",
+          "text": "FALSE != b_LSOut11_10ms",
+          "op": "!=",
+          "expr": {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "FALSE != b_LSOut11_10ms",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 64,
+              "col": 12
+            },
+            "op": "!=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "int_lit",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "FALSE",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 64,
+                  "col": 12
+                },
+                "op": null,
+                "name": null,
+                "value": 0,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "b_LSOut11_10ms",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 64,
+                  "col": 21
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "BO",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "b_LSOut11_10ms",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 64,
+                      "col": 21
+                    },
+                    "op": null,
+                    "name": "b_LSOut11_10ms",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          "vars": [
+            "b_LSOut11_10ms"
+          ]
+        }
+      ],
+      "logical_ops": [],
+      "vars": [
+        "b_LSOut11_10ms"
+      ],
+      "true_branch": [
+        "b_LSOut11_250us = TRUE"
+      ],
+      "false_branch": [
+        "b_LSOut11_250us = FALSE"
+      ],
+      "has_else": true
+    }
+  ],
+  "var_dependencies": [
+    {
+      "target": "b_LSOut11_250us",
+      "sources": [],
+      "kind": "data",
+      "stmt": "BO b_LSOut11_250us = FALSE;",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 4,
+        "col": 7
+      }
+    },
+    {
+      "target": "f32_CuLSOut11",
+      "sources": [
+        "sig_hwc_rx_cu_meas_11_get()"
+      ],
+      "kind": "data",
+      "stmt": "f32_CuLSOut11 = ( sig_hwc_rx_cu_meas_11_get().physical )",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 10,
+        "col": 4
+      }
+    },
+    {
+      "target": "u8_time_LSOut11Short",
+      "sources": [
+        "u8_time_LSOut11Short"
+      ],
+      "kind": "data",
+      "stmt": "u8_time_LSOut11Short ++",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 18,
+        "col": 7
+      }
+    },
+    {
+      "target": "u8_time_LSOut11Short",
+      "sources": [
+        "f32_LSOut11Short",
+        "f32_CuLSOut11"
+      ],
+      "kind": "control",
+      "stmt": "u8_time_LSOut11Short ++",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 18,
+        "col": 7
+      }
+    },
+    {
+      "target": "u8_time_LSOut11Short",
+      "sources": [],
+      "kind": "data",
+      "stmt": "u8_time_LSOut11Short = 0",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 22,
+        "col": 7
+      }
+    },
+    {
+      "target": "u8_time_LSOut11Short",
+      "sources": [
+        "f32_LSOut11Short",
+        "f32_CuLSOut11"
+      ],
+      "kind": "control",
+      "stmt": "u8_time_LSOut11Short = 0",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 22,
+        "col": 7
+      }
+    },
+    {
+      "target": "f32_CuLSOut11Short",
+      "sources": [
+        "f32_CuLSOut11"
+      ],
+      "kind": "data",
+      "stmt": "f32_CuLSOut11Short = f32_CuLSOut11",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 29,
+        "col": 7
+      }
+    },
+    {
+      "target": "f32_CuLSOut11Short",
+      "sources": [
+        "u8_MaxTime_LSOut11Short",
+        "u8_time_LSOut11Short",
+        "f32_CuLSOut11Short"
+      ],
+      "kind": "control",
+      "stmt": "f32_CuLSOut11Short = f32_CuLSOut11",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 29,
+        "col": 7
+      }
+    },
+    {
+      "target": "u8_time_LSOut11CurrH",
+      "sources": [
+        "u8_time_LSOut11CurrH"
+      ],
+      "kind": "data",
+      "stmt": "u8_time_LSOut11CurrH ++",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 38,
+        "col": 7
+      }
+    },
+    {
+      "target": "u8_time_LSOut11CurrH",
+      "sources": [
+        "f32_LSOut11CurrH",
+        "f32_CuLSOut11"
+      ],
+      "kind": "control",
+      "stmt": "u8_time_LSOut11CurrH ++",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 38,
+        "col": 7
+      }
+    },
+    {
+      "target": "u8_time_LSOut11CurrH",
+      "sources": [],
+      "kind": "data",
+      "stmt": "u8_time_LSOut11CurrH = 0",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 42,
+        "col": 7
+      }
+    },
+    {
+      "target": "u8_time_LSOut11CurrH",
+      "sources": [
+        "f32_LSOut11CurrH",
+        "f32_CuLSOut11"
+      ],
+      "kind": "control",
+      "stmt": "u8_time_LSOut11CurrH = 0",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 42,
+        "col": 7
+      }
+    },
+    {
+      "target": "f32_CuLSOut11CurrH",
+      "sources": [
+        "f32_CuLSOut11"
+      ],
+      "kind": "data",
+      "stmt": "f32_CuLSOut11CurrH = f32_CuLSOut11",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 49,
+        "col": 7
+      }
+    },
+    {
+      "target": "f32_CuLSOut11CurrH",
+      "sources": [
+        "u8_MaxTime_LSOut11CurrH",
+        "u8_time_LSOut11CurrH",
+        "f32_CuLSOut11CurrH"
+      ],
+      "kind": "control",
+      "stmt": "f32_CuLSOut11CurrH = f32_CuLSOut11",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 49,
+        "col": 7
+      }
+    },
+    {
+      "target": "b_LSOut11_250us",
+      "sources": [],
+      "kind": "data",
+      "stmt": "b_LSOut11_250us = FALSE",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 60,
+        "col": 7
+      }
+    },
+    {
+      "target": "b_LSOut11_250us",
+      "sources": [
+        "f32_CuLSOut11CurrH",
+        "f32_CuLSOut11Short"
+      ],
+      "kind": "control",
+      "stmt": "b_LSOut11_250us = FALSE",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 60,
+        "col": 7
+      }
+    },
+    {
+      "target": "b_LSOut11_250us",
+      "sources": [],
+      "kind": "data",
+      "stmt": "b_LSOut11_250us = TRUE",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 66,
+        "col": 10
+      }
+    },
+    {
+      "target": "b_LSOut11_250us",
+      "sources": [
+        "f32_CuLSOut11CurrH",
+        "f32_CuLSOut11Short",
+        "b_LSOut11_10ms"
+      ],
+      "kind": "control",
+      "stmt": "b_LSOut11_250us = TRUE",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 66,
+        "col": 10
+      }
+    },
+    {
+      "target": "b_LSOut11_250us",
+      "sources": [],
+      "kind": "data",
+      "stmt": "b_LSOut11_250us = FALSE",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 70,
+        "col": 10
+      }
+    },
+    {
+      "target": "b_LSOut11_250us",
+      "sources": [
+        "f32_CuLSOut11CurrH",
+        "f32_CuLSOut11Short",
+        "b_LSOut11_10ms"
+      ],
+      "kind": "control",
+      "stmt": "b_LSOut11_250us = FALSE",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 70,
+        "col": 10
+      }
+    }
+  ],
+  "cond_uses": [
+    {
+      "cond_id": "C1",
+      "var": "f32_LSOut11Short",
+      "defs": [
+        "entry"
+      ],
+      "modified_before": false
+    },
+    {
+      "cond_id": "C1",
+      "var": "f32_CuLSOut11",
+      "defs": [
+        "f32_CuLSOut11 = ( sig_hwc_rx_cu_meas_11_get().physical ) @source.c:10"
+      ],
+      "modified_before": true
+    },
+    {
+      "cond_id": "C2",
+      "var": "u8_MaxTime_LSOut11Short",
+      "defs": [
+        "entry"
+      ],
+      "modified_before": false
+    },
+    {
+      "cond_id": "C2",
+      "var": "u8_time_LSOut11Short",
+      "defs": [
+        "u8_time_LSOut11Short ++ @source.c:18",
+        "u8_time_LSOut11Short = 0 @source.c:22"
+      ],
+      "modified_before": true
+    },
+    {
+      "cond_id": "C2",
+      "var": "f32_CuLSOut11Short",
+      "defs": [
+        "entry"
+      ],
+      "modified_before": false
+    },
+    {
+      "cond_id": "C3",
+      "var": "f32_LSOut11CurrH",
+      "defs": [
+        "entry"
+      ],
+      "modified_before": false
+    },
+    {
+      "cond_id": "C3",
+      "var": "f32_CuLSOut11",
+      "defs": [
+        "f32_CuLSOut11 = ( sig_hwc_rx_cu_meas_11_get().physical ) @source.c:10"
+      ],
+      "modified_before": true
+    },
+    {
+      "cond_id": "C4",
+      "var": "u8_MaxTime_LSOut11CurrH",
+      "defs": [
+        "entry"
+      ],
+      "modified_before": false
+    },
+    {
+      "cond_id": "C4",
+      "var": "u8_time_LSOut11CurrH",
+      "defs": [
+        "u8_time_LSOut11CurrH ++ @source.c:38",
+        "u8_time_LSOut11CurrH = 0 @source.c:42"
+      ],
+      "modified_before": true
+    },
+    {
+      "cond_id": "C4",
+      "var": "f32_CuLSOut11CurrH",
+      "defs": [
+        "entry"
+      ],
+      "modified_before": false
+    },
+    {
+      "cond_id": "C5",
+      "var": "f32_CuLSOut11CurrH",
+      "defs": [
+        "entry",
+        "f32_CuLSOut11CurrH = f32_CuLSOut11 @source.c:49"
+      ],
+      "modified_before": true
+    },
+    {
+      "cond_id": "C5",
+      "var": "f32_CuLSOut11Short",
+      "defs": [
+        "entry",
+        "f32_CuLSOut11Short = f32_CuLSOut11 @source.c:29"
+      ],
+      "modified_before": true
+    },
+    {
+      "cond_id": "C6",
+      "var": "b_LSOut11_10ms",
+      "defs": [
+        "entry"
+      ],
+      "modified_before": false
+    }
+  ],
+  "body": [
+    {
+      "id": 1,
+      "kind": "decl",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 4,
+        "col": 7
+      },
+      "text": "BO b_LSOut11_250us = FALSE;",
+      "expr": {
+        "kind": "cast",
+        "type": {
+          "spelling": "BO",
+          "canonical": "unsigned char",
+          "kind": "int",
+          "bits": 8,
+          "signed": false,
+          "is_const": false,
+          "enumerators": {},
+          "fields": []
+        },
+        "text": "FALSE",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 4,
+          "col": 25
+        },
+        "op": null,
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": true,
+        "children": [
+          {
+            "kind": "int_lit",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "FALSE",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 4,
+              "col": 25
+            },
+            "op": null,
+            "name": null,
+            "value": 0,
+            "prefix": false,
+            "implicit": false,
+            "children": []
+          }
+        ]
+      },
+      "var": "b_LSOut11_250us",
+      "cond_id": null,
+      "then": [],
+      "els": [],
+      "has_else": false,
+      "note": ""
+    },
+    {
+      "id": 2,
+      "kind": "expr",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 10,
+        "col": 4
+      },
+      "text": "f32_CuLSOut11 = ( sig_hwc_rx_cu_meas_11_get().physical )",
+      "expr": {
+        "kind": "assign",
+        "type": {
+          "spelling": "F32",
+          "canonical": "float",
+          "kind": "float",
+          "bits": 32,
+          "signed": null,
+          "is_const": false,
+          "enumerators": {},
+          "fields": []
+        },
+        "text": "f32_CuLSOut11 = ( sig_hwc_rx_cu_meas_11_get().physical )",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 10,
+          "col": 4
+        },
+        "op": "=",
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": false,
+        "children": [
+          {
+            "kind": "var_ref",
+            "type": {
+              "spelling": "F32",
+              "canonical": "float",
+              "kind": "float",
+              "bits": 32,
+              "signed": null,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "f32_CuLSOut11",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 10,
+              "col": 4
+            },
+            "op": null,
+            "name": "f32_CuLSOut11",
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": []
+          },
+          {
+            "kind": "member",
+            "type": {
+              "spelling": "F32",
+              "canonical": "float",
+              "kind": "float",
+              "bits": 32,
+              "signed": null,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "sig_hwc_rx_cu_meas_11_get().physical",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 10,
+              "col": 50
+            },
+            "op": null,
+            "name": "physical",
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "call",
+                "type": {
+                  "spelling": "volt_ratio_physical_t",
+                  "canonical": "volt_ratio_physical_t",
+                  "kind": "struct",
+                  "bits": 0,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": [
+                    [
+                      "physical",
+                      {
+                        "spelling": "F32",
+                        "canonical": "float",
+                        "kind": "float",
+                        "bits": 32,
+                        "signed": null,
+                        "is_const": false,
+                        "enumerators": {},
+                        "fields": []
+                      }
+                    ]
+                  ]
+                },
+                "text": "sig_hwc_rx_cu_meas_11_get()",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 10,
+                  "col": 22
+                },
+                "op": null,
+                "name": "sig_hwc_rx_cu_meas_11_get",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "var": null,
+      "cond_id": null,
+      "then": [],
+      "els": [],
+      "has_else": false,
+      "note": ""
+    },
+    {
+      "id": 3,
+      "kind": "if",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 16,
+        "col": 4
+      },
+      "text": "if ( f32_LSOut11Short <= f32_CuLSOut11 )",
+      "expr": {
+        "kind": "binary",
+        "type": {
+          "spelling": "int",
+          "canonical": "int",
+          "kind": "int",
+          "bits": 32,
+          "signed": true,
+          "is_const": false,
+          "enumerators": {},
+          "fields": []
+        },
+        "text": "f32_LSOut11Short <= f32_CuLSOut11",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 16,
+          "col": 9
+        },
+        "op": "<=",
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": false,
+        "children": [
+          {
+            "kind": "var_ref",
+            "type": {
+              "spelling": "F32",
+              "canonical": "float",
+              "kind": "float",
+              "bits": 32,
+              "signed": null,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "f32_LSOut11Short",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 16,
+              "col": 9
+            },
+            "op": null,
+            "name": "f32_LSOut11Short",
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": []
+          },
+          {
+            "kind": "var_ref",
+            "type": {
+              "spelling": "F32",
+              "canonical": "float",
+              "kind": "float",
+              "bits": 32,
+              "signed": null,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "f32_CuLSOut11",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 16,
+              "col": 29
+            },
+            "op": null,
+            "name": "f32_CuLSOut11",
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": []
+          }
+        ]
+      },
+      "var": null,
+      "cond_id": "C1",
+      "then": [
+        {
+          "id": 4,
+          "kind": "expr",
+          "loc": {
+            "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+            "line": 18,
+            "col": 7
+          },
+          "text": "u8_time_LSOut11Short ++",
+          "expr": {
+            "kind": "incdec",
+            "type": {
+              "spelling": "U8",
+              "canonical": "unsigned char",
+              "kind": "int",
+              "bits": 8,
+              "signed": false,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "u8_time_LSOut11Short ++",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 18,
+              "col": 7
+            },
+            "op": "++",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "U8",
+                  "canonical": "unsigned char",
+                  "kind": "int",
+                  "bits": 8,
+                  "signed": false,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_time_LSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 18,
+                  "col": 7
+                },
+                "op": null,
+                "name": "u8_time_LSOut11Short",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          },
+          "var": null,
+          "cond_id": null,
+          "then": [],
+          "els": [],
+          "has_else": false,
+          "note": ""
+        }
+      ],
+      "els": [
+        {
+          "id": 5,
+          "kind": "expr",
+          "loc": {
+            "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+            "line": 22,
+            "col": 7
+          },
+          "text": "u8_time_LSOut11Short = 0",
+          "expr": {
+            "kind": "assign",
+            "type": {
+              "spelling": "U8",
+              "canonical": "unsigned char",
+              "kind": "int",
+              "bits": 8,
+              "signed": false,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "u8_time_LSOut11Short = 0",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 22,
+              "col": 7
+            },
+            "op": "=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "U8",
+                  "canonical": "unsigned char",
+                  "kind": "int",
+                  "bits": 8,
+                  "signed": false,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_time_LSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 22,
+                  "col": 7
+                },
+                "op": null,
+                "name": "u8_time_LSOut11Short",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "U8",
+                  "canonical": "unsigned char",
+                  "kind": "int",
+                  "bits": 8,
+                  "signed": false,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "0",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 22,
+                  "col": 30
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "int_lit",
+                    "type": {
+                      "spelling": "int",
+                      "canonical": "int",
+                      "kind": "int",
+                      "bits": 32,
+                      "signed": true,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "0",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 22,
+                      "col": 30
+                    },
+                    "op": null,
+                    "name": null,
+                    "value": 0,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          "var": null,
+          "cond_id": null,
+          "then": [],
+          "els": [],
+          "has_else": false,
+          "note": ""
+        }
+      ],
+      "has_else": true,
+      "note": ""
+    },
+    {
+      "id": 6,
+      "kind": "if",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 25,
+        "col": 4
+      },
+      "text": "if ( ( u8_MaxTime_LSOut11Short <= u8_time_LSOut11Short ) && ( 0.0f == f32_CuLSOut11Short ) )",
+      "expr": {
+        "kind": "binary",
+        "type": {
+          "spelling": "int",
+          "canonical": "int",
+          "kind": "int",
+          "bits": 32,
+          "signed": true,
+          "is_const": false,
+          "enumerators": {},
+          "fields": []
+        },
+        "text": "( u8_MaxTime_LSOut11Short <= u8_time_LSOut11Short ) && ( 0.0f == f32_CuLSOut11Short )",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 25,
+          "col": 12
+        },
+        "op": "&&",
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": false,
+        "children": [
+          {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "u8_MaxTime_LSOut11Short <= u8_time_LSOut11Short",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 25,
+              "col": 14
+            },
+            "op": "<=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_MaxTime_LSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 25,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "U8",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "u8_MaxTime_LSOut11Short",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 25,
+                      "col": 14
+                    },
+                    "op": null,
+                    "name": "u8_MaxTime_LSOut11Short",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_time_LSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 25,
+                  "col": 41
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "U8",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "u8_time_LSOut11Short",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 25,
+                      "col": 41
+                    },
+                    "op": null,
+                    "name": "u8_time_LSOut11Short",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "0.0f == f32_CuLSOut11Short",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 26,
+              "col": 14
+            },
+            "op": "==",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "float_lit",
+                "type": {
+                  "spelling": "float",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "0.0f",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 26,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": 0.0,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 26,
+                  "col": 22
+                },
+                "op": null,
+                "name": "f32_CuLSOut11Short",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "var": null,
+      "cond_id": "C2",
+      "then": [
+        {
+          "id": 7,
+          "kind": "expr",
+          "loc": {
+            "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+            "line": 29,
+            "col": 7
+          },
+          "text": "f32_CuLSOut11Short = f32_CuLSOut11",
+          "expr": {
+            "kind": "assign",
+            "type": {
+              "spelling": "F32",
+              "canonical": "float",
+              "kind": "float",
+              "bits": 32,
+              "signed": null,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "f32_CuLSOut11Short = f32_CuLSOut11",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 29,
+              "col": 7
+            },
+            "op": "=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 29,
+                  "col": 7
+                },
+                "op": null,
+                "name": "f32_CuLSOut11Short",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 29,
+                  "col": 28
+                },
+                "op": null,
+                "name": "f32_CuLSOut11",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          },
+          "var": null,
+          "cond_id": null,
+          "then": [],
+          "els": [],
+          "has_else": false,
+          "note": ""
+        }
+      ],
+      "els": [],
+      "has_else": false,
+      "note": ""
+    },
+    {
+      "id": 8,
+      "kind": "if",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 36,
+        "col": 4
+      },
+      "text": "if ( f32_LSOut11CurrH <= f32_CuLSOut11 )",
+      "expr": {
+        "kind": "binary",
+        "type": {
+          "spelling": "int",
+          "canonical": "int",
+          "kind": "int",
+          "bits": 32,
+          "signed": true,
+          "is_const": false,
+          "enumerators": {},
+          "fields": []
+        },
+        "text": "f32_LSOut11CurrH <= f32_CuLSOut11",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 36,
+          "col": 9
+        },
+        "op": "<=",
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": false,
+        "children": [
+          {
+            "kind": "var_ref",
+            "type": {
+              "spelling": "F32",
+              "canonical": "float",
+              "kind": "float",
+              "bits": 32,
+              "signed": null,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "f32_LSOut11CurrH",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 36,
+              "col": 9
+            },
+            "op": null,
+            "name": "f32_LSOut11CurrH",
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": []
+          },
+          {
+            "kind": "var_ref",
+            "type": {
+              "spelling": "F32",
+              "canonical": "float",
+              "kind": "float",
+              "bits": 32,
+              "signed": null,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "f32_CuLSOut11",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 36,
+              "col": 29
+            },
+            "op": null,
+            "name": "f32_CuLSOut11",
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": []
+          }
+        ]
+      },
+      "var": null,
+      "cond_id": "C3",
+      "then": [
+        {
+          "id": 9,
+          "kind": "expr",
+          "loc": {
+            "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+            "line": 38,
+            "col": 7
+          },
+          "text": "u8_time_LSOut11CurrH ++",
+          "expr": {
+            "kind": "incdec",
+            "type": {
+              "spelling": "U8",
+              "canonical": "unsigned char",
+              "kind": "int",
+              "bits": 8,
+              "signed": false,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "u8_time_LSOut11CurrH ++",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 38,
+              "col": 7
+            },
+            "op": "++",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "U8",
+                  "canonical": "unsigned char",
+                  "kind": "int",
+                  "bits": 8,
+                  "signed": false,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_time_LSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 38,
+                  "col": 7
+                },
+                "op": null,
+                "name": "u8_time_LSOut11CurrH",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          },
+          "var": null,
+          "cond_id": null,
+          "then": [],
+          "els": [],
+          "has_else": false,
+          "note": ""
+        }
+      ],
+      "els": [
+        {
+          "id": 10,
+          "kind": "expr",
+          "loc": {
+            "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+            "line": 42,
+            "col": 7
+          },
+          "text": "u8_time_LSOut11CurrH = 0",
+          "expr": {
+            "kind": "assign",
+            "type": {
+              "spelling": "U8",
+              "canonical": "unsigned char",
+              "kind": "int",
+              "bits": 8,
+              "signed": false,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "u8_time_LSOut11CurrH = 0",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 42,
+              "col": 7
+            },
+            "op": "=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "U8",
+                  "canonical": "unsigned char",
+                  "kind": "int",
+                  "bits": 8,
+                  "signed": false,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_time_LSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 42,
+                  "col": 7
+                },
+                "op": null,
+                "name": "u8_time_LSOut11CurrH",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "U8",
+                  "canonical": "unsigned char",
+                  "kind": "int",
+                  "bits": 8,
+                  "signed": false,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "0",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 42,
+                  "col": 30
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "int_lit",
+                    "type": {
+                      "spelling": "int",
+                      "canonical": "int",
+                      "kind": "int",
+                      "bits": 32,
+                      "signed": true,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "0",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 42,
+                      "col": 30
+                    },
+                    "op": null,
+                    "name": null,
+                    "value": 0,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          "var": null,
+          "cond_id": null,
+          "then": [],
+          "els": [],
+          "has_else": false,
+          "note": ""
+        }
+      ],
+      "has_else": true,
+      "note": ""
+    },
+    {
+      "id": 11,
+      "kind": "if",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 45,
+        "col": 4
+      },
+      "text": "if ( ( u8_MaxTime_LSOut11CurrH <= u8_time_LSOut11CurrH ) && ( 0.0f == f32_CuLSOut11CurrH ) )",
+      "expr": {
+        "kind": "binary",
+        "type": {
+          "spelling": "int",
+          "canonical": "int",
+          "kind": "int",
+          "bits": 32,
+          "signed": true,
+          "is_const": false,
+          "enumerators": {},
+          "fields": []
+        },
+        "text": "( u8_MaxTime_LSOut11CurrH <= u8_time_LSOut11CurrH ) && ( 0.0f == f32_CuLSOut11CurrH )",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 45,
+          "col": 12
+        },
+        "op": "&&",
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": false,
+        "children": [
+          {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "u8_MaxTime_LSOut11CurrH <= u8_time_LSOut11CurrH",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 45,
+              "col": 14
+            },
+            "op": "<=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_MaxTime_LSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 45,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "U8",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "u8_MaxTime_LSOut11CurrH",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 45,
+                      "col": 14
+                    },
+                    "op": null,
+                    "name": "u8_MaxTime_LSOut11CurrH",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "u8_time_LSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 45,
+                  "col": 41
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "U8",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "u8_time_LSOut11CurrH",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 45,
+                      "col": 41
+                    },
+                    "op": null,
+                    "name": "u8_time_LSOut11CurrH",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "0.0f == f32_CuLSOut11CurrH",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 46,
+              "col": 14
+            },
+            "op": "==",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "float_lit",
+                "type": {
+                  "spelling": "float",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "0.0f",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 46,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": 0.0,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 46,
+                  "col": 22
+                },
+                "op": null,
+                "name": "f32_CuLSOut11CurrH",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "var": null,
+      "cond_id": "C4",
+      "then": [
+        {
+          "id": 12,
+          "kind": "expr",
+          "loc": {
+            "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+            "line": 49,
+            "col": 7
+          },
+          "text": "f32_CuLSOut11CurrH = f32_CuLSOut11",
+          "expr": {
+            "kind": "assign",
+            "type": {
+              "spelling": "F32",
+              "canonical": "float",
+              "kind": "float",
+              "bits": 32,
+              "signed": null,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "f32_CuLSOut11CurrH = f32_CuLSOut11",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 49,
+              "col": 7
+            },
+            "op": "=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 49,
+                  "col": 7
+                },
+                "op": null,
+                "name": "f32_CuLSOut11CurrH",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 49,
+                  "col": 28
+                },
+                "op": null,
+                "name": "f32_CuLSOut11",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          },
+          "var": null,
+          "cond_id": null,
+          "then": [],
+          "els": [],
+          "has_else": false,
+          "note": ""
+        }
+      ],
+      "els": [],
+      "has_else": false,
+      "note": ""
+    },
+    {
+      "id": 13,
+      "kind": "if",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 56,
+        "col": 4
+      },
+      "text": "if ( ( 0.0f != f32_CuLSOut11CurrH ) || ( 0.0f != f32_CuLSOut11Short ) )",
+      "expr": {
+        "kind": "binary",
+        "type": {
+          "spelling": "int",
+          "canonical": "int",
+          "kind": "int",
+          "bits": 32,
+          "signed": true,
+          "is_const": false,
+          "enumerators": {},
+          "fields": []
+        },
+        "text": "( 0.0f != f32_CuLSOut11CurrH ) || ( 0.0f != f32_CuLSOut11Short )",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 56,
+          "col": 12
+        },
+        "op": "||",
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": false,
+        "children": [
+          {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "0.0f != f32_CuLSOut11CurrH",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 56,
+              "col": 14
+            },
+            "op": "!=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "float_lit",
+                "type": {
+                  "spelling": "float",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "0.0f",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 56,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": 0.0,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11CurrH",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 56,
+                  "col": 22
+                },
+                "op": null,
+                "name": "f32_CuLSOut11CurrH",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          },
+          {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "0.0f != f32_CuLSOut11Short",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 57,
+              "col": 14
+            },
+            "op": "!=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "float_lit",
+                "type": {
+                  "spelling": "float",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "0.0f",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 57,
+                  "col": 14
+                },
+                "op": null,
+                "name": null,
+                "value": 0.0,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "F32",
+                  "canonical": "float",
+                  "kind": "float",
+                  "bits": 32,
+                  "signed": null,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "f32_CuLSOut11Short",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 57,
+                  "col": 22
+                },
+                "op": null,
+                "name": "f32_CuLSOut11Short",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "var": null,
+      "cond_id": "C5",
+      "then": [
+        {
+          "id": 14,
+          "kind": "expr",
+          "loc": {
+            "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+            "line": 60,
+            "col": 7
+          },
+          "text": "b_LSOut11_250us = FALSE",
+          "expr": {
+            "kind": "assign",
+            "type": {
+              "spelling": "BO",
+              "canonical": "unsigned char",
+              "kind": "int",
+              "bits": 8,
+              "signed": false,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "b_LSOut11_250us = FALSE",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 60,
+              "col": 7
+            },
+            "op": "=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "BO",
+                  "canonical": "unsigned char",
+                  "kind": "int",
+                  "bits": 8,
+                  "signed": false,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "b_LSOut11_250us",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 60,
+                  "col": 7
+                },
+                "op": null,
+                "name": "b_LSOut11_250us",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "BO",
+                  "canonical": "unsigned char",
+                  "kind": "int",
+                  "bits": 8,
+                  "signed": false,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "FALSE",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 60,
+                  "col": 25
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "int_lit",
+                    "type": {
+                      "spelling": "int",
+                      "canonical": "int",
+                      "kind": "int",
+                      "bits": 32,
+                      "signed": true,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "FALSE",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 60,
+                      "col": 25
+                    },
+                    "op": null,
+                    "name": null,
+                    "value": 0,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          "var": null,
+          "cond_id": null,
+          "then": [],
+          "els": [],
+          "has_else": false,
+          "note": ""
+        }
+      ],
+      "els": [
+        {
+          "id": 15,
+          "kind": "if",
+          "loc": {
+            "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+            "line": 64,
+            "col": 7
+          },
+          "text": "if ( FALSE != b_LSOut11_10ms )",
+          "expr": {
+            "kind": "binary",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "FALSE != b_LSOut11_10ms",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 64,
+              "col": 12
+            },
+            "op": "!=",
+            "name": null,
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "int_lit",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "FALSE",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 64,
+                  "col": 12
+                },
+                "op": null,
+                "name": null,
+                "value": 0,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              },
+              {
+                "kind": "cast",
+                "type": {
+                  "spelling": "int",
+                  "canonical": "int",
+                  "kind": "int",
+                  "bits": 32,
+                  "signed": true,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "b_LSOut11_10ms",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 64,
+                  "col": 21
+                },
+                "op": null,
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": true,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "BO",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "b_LSOut11_10ms",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 64,
+                      "col": 21
+                    },
+                    "op": null,
+                    "name": "b_LSOut11_10ms",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          "var": null,
+          "cond_id": "C6",
+          "then": [
+            {
+              "id": 16,
+              "kind": "expr",
+              "loc": {
+                "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                "line": 66,
+                "col": 10
+              },
+              "text": "b_LSOut11_250us = TRUE",
+              "expr": {
+                "kind": "assign",
+                "type": {
+                  "spelling": "BO",
+                  "canonical": "unsigned char",
+                  "kind": "int",
+                  "bits": 8,
+                  "signed": false,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "b_LSOut11_250us = TRUE",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 66,
+                  "col": 10
+                },
+                "op": "=",
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "BO",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "b_LSOut11_250us",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 66,
+                      "col": 10
+                    },
+                    "op": null,
+                    "name": "b_LSOut11_250us",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  },
+                  {
+                    "kind": "cast",
+                    "type": {
+                      "spelling": "BO",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "TRUE",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 66,
+                      "col": 29
+                    },
+                    "op": null,
+                    "name": null,
+                    "value": null,
+                    "prefix": false,
+                    "implicit": true,
+                    "children": [
+                      {
+                        "kind": "int_lit",
+                        "type": {
+                          "spelling": "int",
+                          "canonical": "int",
+                          "kind": "int",
+                          "bits": 32,
+                          "signed": true,
+                          "is_const": false,
+                          "enumerators": {},
+                          "fields": []
+                        },
+                        "text": "TRUE",
+                        "loc": {
+                          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                          "line": 66,
+                          "col": 29
+                        },
+                        "op": null,
+                        "name": null,
+                        "value": 1,
+                        "prefix": false,
+                        "implicit": false,
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              "var": null,
+              "cond_id": null,
+              "then": [],
+              "els": [],
+              "has_else": false,
+              "note": ""
+            }
+          ],
+          "els": [
+            {
+              "id": 17,
+              "kind": "expr",
+              "loc": {
+                "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                "line": 70,
+                "col": 10
+              },
+              "text": "b_LSOut11_250us = FALSE",
+              "expr": {
+                "kind": "assign",
+                "type": {
+                  "spelling": "BO",
+                  "canonical": "unsigned char",
+                  "kind": "int",
+                  "bits": 8,
+                  "signed": false,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "b_LSOut11_250us = FALSE",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 70,
+                  "col": 10
+                },
+                "op": "=",
+                "name": null,
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": [
+                  {
+                    "kind": "var_ref",
+                    "type": {
+                      "spelling": "BO",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "b_LSOut11_250us",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 70,
+                      "col": 10
+                    },
+                    "op": null,
+                    "name": "b_LSOut11_250us",
+                    "value": null,
+                    "prefix": false,
+                    "implicit": false,
+                    "children": []
+                  },
+                  {
+                    "kind": "cast",
+                    "type": {
+                      "spelling": "BO",
+                      "canonical": "unsigned char",
+                      "kind": "int",
+                      "bits": 8,
+                      "signed": false,
+                      "is_const": false,
+                      "enumerators": {},
+                      "fields": []
+                    },
+                    "text": "FALSE",
+                    "loc": {
+                      "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                      "line": 70,
+                      "col": 28
+                    },
+                    "op": null,
+                    "name": null,
+                    "value": null,
+                    "prefix": false,
+                    "implicit": true,
+                    "children": [
+                      {
+                        "kind": "int_lit",
+                        "type": {
+                          "spelling": "int",
+                          "canonical": "int",
+                          "kind": "int",
+                          "bits": 32,
+                          "signed": true,
+                          "is_const": false,
+                          "enumerators": {},
+                          "fields": []
+                        },
+                        "text": "FALSE",
+                        "loc": {
+                          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                          "line": 70,
+                          "col": 28
+                        },
+                        "op": null,
+                        "name": null,
+                        "value": 0,
+                        "prefix": false,
+                        "implicit": false,
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              "var": null,
+              "cond_id": null,
+              "then": [],
+              "els": [],
+              "has_else": false,
+              "note": ""
+            }
+          ],
+          "has_else": true,
+          "note": ""
+        }
+      ],
+      "has_else": true,
+      "note": ""
+    },
+    {
+      "id": 18,
+      "kind": "expr",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 76,
+        "col": 4
+      },
+      "text": "(VO) sig_hwc_tx_LS11_set ( b_LSOut11_250us )",
+      "expr": {
+        "kind": "cast",
+        "type": {
+          "spelling": "VO",
+          "canonical": "void",
+          "kind": "void",
+          "bits": 0,
+          "signed": null,
+          "is_const": false,
+          "enumerators": {},
+          "fields": []
+        },
+        "text": "(VO) sig_hwc_tx_LS11_set ( b_LSOut11_250us )",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 76,
+          "col": 4
+        },
+        "op": null,
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": false,
+        "children": [
+          {
+            "kind": "call",
+            "type": {
+              "spelling": "VO",
+              "canonical": "void",
+              "kind": "void",
+              "bits": 0,
+              "signed": null,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "sig_hwc_tx_LS11_set ( b_LSOut11_250us )",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 76,
+              "col": 9
+            },
+            "op": null,
+            "name": "sig_hwc_tx_LS11_set",
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": [
+              {
+                "kind": "var_ref",
+                "type": {
+                  "spelling": "BO",
+                  "canonical": "unsigned char",
+                  "kind": "int",
+                  "bits": 8,
+                  "signed": false,
+                  "is_const": false,
+                  "enumerators": {},
+                  "fields": []
+                },
+                "text": "b_LSOut11_250us",
+                "loc": {
+                  "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+                  "line": 76,
+                  "col": 31
+                },
+                "op": null,
+                "name": "b_LSOut11_250us",
+                "value": null,
+                "prefix": false,
+                "implicit": false,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "var": null,
+      "cond_id": null,
+      "then": [],
+      "els": [],
+      "has_else": false,
+      "note": ""
+    },
+    {
+      "id": 19,
+      "kind": "expr",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 77,
+        "col": 4
+      },
+      "text": "(VO) sig_hwc_tx_LS11_flush ()",
+      "expr": {
+        "kind": "cast",
+        "type": {
+          "spelling": "VO",
+          "canonical": "void",
+          "kind": "void",
+          "bits": 0,
+          "signed": null,
+          "is_const": false,
+          "enumerators": {},
+          "fields": []
+        },
+        "text": "(VO) sig_hwc_tx_LS11_flush ()",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 77,
+          "col": 4
+        },
+        "op": null,
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": false,
+        "children": [
+          {
+            "kind": "call",
+            "type": {
+              "spelling": "VO",
+              "canonical": "void",
+              "kind": "void",
+              "bits": 0,
+              "signed": null,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "sig_hwc_tx_LS11_flush ()",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 77,
+              "col": 9
+            },
+            "op": null,
+            "name": "sig_hwc_tx_LS11_flush",
+            "value": null,
+            "prefix": false,
+            "implicit": false,
+            "children": []
+          }
+        ]
+      },
+      "var": null,
+      "cond_id": null,
+      "then": [],
+      "els": [],
+      "has_else": false,
+      "note": ""
+    },
+    {
+      "id": 20,
+      "kind": "return",
+      "loc": {
+        "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+        "line": 79,
+        "col": 4
+      },
+      "text": "return RC_SUCCESS",
+      "expr": {
+        "kind": "cast",
+        "type": {
+          "spelling": "RC",
+          "canonical": "RC",
+          "kind": "enum",
+          "bits": 32,
+          "signed": true,
+          "is_const": false,
+          "enumerators": {
+            "RC_SUCCESS": 0,
+            "RC_ERROR": -1,
+            "RC_ERROR_NULL": -2,
+            "RC_ERROR_ZERO": -3,
+            "RC_ERROR_MEMORY": -4,
+            "RC_ERROR_RANGE": -5,
+            "RC_ERROR_OVERRUN": -6,
+            "RC_ERROR_UNDERRUN": -7,
+            "RC_ERROR_BUFFER_FULL": -8,
+            "RC_ERROR_BUFFER_EMTPY": -9,
+            "RC_ERROR_BUSY": -10,
+            "RC_ERROR_TIME_OUT": -11,
+            "RC_ERROR_OPEN": -12,
+            "RC_ERROR_CHECKSUM": -13,
+            "RC_ERROR_READ_ONLY": -14,
+            "RC_ERROR_WRITE_ONLY": -15,
+            "RC_ERROR_INVALID": -16,
+            "RC_ERROR_READ_FAILS": -17,
+            "RC_ERROR_WRITE_FAILS": -18,
+            "RC_ERROR_NOT_MATCH": -19,
+            "RC_ERROR_FILE_ACCESS": -21,
+            "RC_ERROR_FILE_SIZE_UNDERRUN": -22,
+            "RC_ERROR_FILE_SIZE_OVERRUN": -23,
+            "RC_ERROR_VERIFY": -24,
+            "RC_ERROR_NOT_FOUND": -25,
+            "RC_ERROR_WRITE_INVALID_LENGTH": -26
+          },
+          "fields": []
+        },
+        "text": "RC_SUCCESS",
+        "loc": {
+          "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+          "line": 79,
+          "col": 11
+        },
+        "op": null,
+        "name": null,
+        "value": null,
+        "prefix": false,
+        "implicit": true,
+        "children": [
+          {
+            "kind": "enum_const",
+            "type": {
+              "spelling": "int",
+              "canonical": "int",
+              "kind": "int",
+              "bits": 32,
+              "signed": true,
+              "is_const": false,
+              "enumerators": {},
+              "fields": []
+            },
+            "text": "RC_SUCCESS",
+            "loc": {
+              "file": "/home/claude/utg_tool/examples/benchmark/test/mock/lsout11/source.c",
+              "line": 79,
+              "col": 11
+            },
+            "op": null,
+            "name": "RC_SUCCESS",
+            "value": 0,
+            "prefix": false,
+            "implicit": false,
+            "children": []
+          }
+        ]
+      },
+      "var": null,
+      "cond_id": null,
+      "then": [],
+      "els": [],
+      "has_else": false,
+      "note": ""
+    }
+  ],
+  "return_values": [
+    "RC_SUCCESS"
+  ],
+  "unsupported": [],
+  "diagnostics": []
+}

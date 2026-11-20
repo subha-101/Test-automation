@@ -1,0 +1,7 @@
+
+
+# The --pdf-dir path may also point INSIDE a .zip archive (as below). The tool
+# extracts the archive to a temporary folder, reads the PDFs, generates the
+# test cases, then cleans up automatically.
+
+python generator.py lsout3_dtc.c --pdf-dir C:\Users\A0095101\Downloads\KWPC_man_old\man_old\quality\test\lsout3_dtc\lsout3_dtc.zip\lsout3_dtc\Test_details

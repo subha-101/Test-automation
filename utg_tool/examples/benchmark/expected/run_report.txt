@@ -1,0 +1,26 @@
+12 scenarios -> examples/benchmark/expected/test_rc_lsout11_out_250us.cpp
+{
+  "basis": "PLANNED (derived from solver models, not from execution)",
+  "targets": {
+    "decision": "12/12",
+    "boundary": "30/32",
+    "wrap": "2/2"
+  },
+  "uncovered": [
+    [
+      "C2.a1 [u8_MaxTime_LSOut11Short <= u8_time_LSOut11Short]: lhs less than rhs after C1=FALSE",
+      "proven infeasible by Z3 (no input satisfies the path constraints): not a coverage gap"
+    ],
+    [
+      "C4.a1 [u8_MaxTime_LSOut11CurrH <= u8_time_LSOut11CurrH]: lhs less than rhs after C3=FALSE",
+      "proven infeasible by Z3 (no input satisfies the path constraints): not a coverage gap"
+    ]
+  ],
+  "scenarios": 12,
+  "feasible_paths": 48,
+  "truncated": false
+}
+[warning] 10 accessor pointer(s) (*p_{name}) are assumed, not verified against the project
+validation level: executed 
+compiled: True executed: True tests 12, failed 0
+MEASURED coverage (gcov): {'lines_total': 24, 'lines_hit': 24, 'branches_total': 18, 'branches_taken': 18, 'tool': 'gcov (GCC), -O0, whole source function range', 'gcov_file': '/home/claude/utg_tool/examples/benchmark/expected/build/source.c.gcov'}
