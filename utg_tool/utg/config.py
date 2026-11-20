@@ -41,7 +41,7 @@ class ProjectConfig:
     access_overrides: dict = field(default_factory=dict)   # {var_name: pattern or "inaccessible"}
     # ---- mock conventions ----------------------------------------------------------------------------------
     strict_order: bool = True                              # mock().strictOrder() when >1 mocked call
-    verify_params: bool = True                             # .withParameter(<declared param name>, value)
+    verify_params: bool = False                            # .withParameter(<declared param name>, value)
     struct_return: str = "pointer"                         # pointer: .andReturnValue(&local)   (project convention)
     mock_overrides: dict = field(default_factory=dict)
 

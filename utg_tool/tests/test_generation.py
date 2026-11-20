@@ -1,4 +1,6 @@
 import os
+from concurrent.futures import ThreadPoolExecutor
+from threading import Barrier
 import pytest
 from utg.pipeline import generate
 from utg.scenarios import ScenarioGenerator
@@ -81,6 +83,29 @@ def test_determinism(cfg, analysis):
     assert a == b
 
 
+def test_concurrent_generations_preserve_deterministic_output(tmp_path):
+    cfg, a = _analyse_source(tmp_path, """
+        int subject(float x, unsigned int y) {
+            if (x + 0.5f <= 0.0f && y == 7u) return 1;
+            return 0;
+        }
+    """)
+    expected = generate(cfg, a)
+    assert len(expected.result.scenarios) > 1
+    ready = Barrier(2, timeout=10)
+
+    def run():
+        ready.wait()
+        return generate(cfg, a)
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        runs = [pool.submit(run) for _ in range(2)]
+        for future in runs:
+            actual = future.result(timeout=30)
+            assert actual.result == expected.result
+            assert actual.code == expected.code
+
+
 def test_mcdc_not_silently_accepted(cfg, analysis):
     with pytest.raises(ValueError, match="MC/DC"):
         ScenarioGenerator(analysis.ir, cfg).generate(("mcdc",))
@@ -101,3 +126,100 @@ def test_inaccessible_static_is_reported_and_not_emitted(cfg, bench_copy):
     assert a.access_issues and "not accessible" in a.access_issues[0]
     g = generate(c, a)
     assert g.report.blocked and "*p_" not in g.code and "direct" not in g.code.lower().split("note")[0]
+
+
+def _analyse_source(tmp_path, text, name="subject"):
+    from utg.config import ProjectConfig
+    from utg.pipeline import analyse_function
+
+    source = tmp_path / "source.c"
+    source.write_text(text)
+    cfg = ProjectConfig(source_file=str(source))
+    return cfg, analyse_function(cfg, name)
+
+
+def test_straight_line_struct_write_and_mock_address(tmp_path):
+    cfg, a = _analyse_source(tmp_path, """
+        typedef struct { int value; int array[4]; } State;
+        static State state;
+        void observe(const State *object);
+        int subject(void) { state.value = 5; observe(&state); return state.value; }
+    """)
+    cfg.verify_params = True
+    g = generate(cfg, a)
+    assert g.result.path_count == 1
+    (sc,) = g.result.scenarios
+    assert sc.inputs["state.value"] != 5
+    assert sc.expected_vars == {"state.value": 5}
+    assert sc.expected_ret == 5
+    assert '.withConstPointerParameter("object", static_cast<const void*>(&(*p_state)))' in g.code
+    assert "CHECK_EQUAL(5, (*p_state).value);" in g.code
+    assert not g.report.blocked
+
+
+def test_default_mock_expectations_omit_pointer_and_scalar_parameters(tmp_path):
+    cfg, a = _analyse_source(tmp_path, """
+        static int value;
+        float read(const int *object, int index);
+        void observe(int index);
+        float subject(void) { observe(2); return read(&value, 3); }
+    """)
+    g = generate(cfg, a)
+    assert not g.report.blocked
+    assert 'mock().expectOneCall("observe");' in g.code
+    assert 'mock().expectOneCall("read").andReturnValue(0.0f);' in g.code
+    assert "Parameter(" not in g.code
+    assert "mock().strictOrder();" in g.code
+
+
+def test_short_circuit_mock_and_local_static_share_no_state(tmp_path):
+    cfg, a = _analyse_source(tmp_path, """
+        _Bool probe(void);
+        int subject(int gate) {
+            static int count = 4;
+            if (gate /* local gate */ || probe()) ++count;
+            return count;
+        }
+    """)
+    g = generate(cfg, a)
+    assert g.result.path_count == 3
+    assert {bool(sc.events) for sc in g.result.scenarios} == {False, True}
+    for sc in g.result.scenarios:
+        assert bool(sc.events) == (sc.inputs["gate"] == 0)
+        assert sc.expected_ret == (5 if sc.decisions[0][1] else 4)
+        assert "count" not in sc.inputs
+    assert "fresh process" in g.code
+    assert "local gate * /" in g.code
+    assert ".andReturnValue(static_cast<long>(1))" in g.code
+
+
+def test_defined_float_cast_and_infeasible_float_cast(tmp_path):
+    cfg, a = _analyse_source(tmp_path, "int subject(void) { return (int)-3.75f; }")
+    assert generate(cfg, a).result.scenarios[0].expected_ret == -3
+    cfg, a = _analyse_source(tmp_path, "short subject(void) { return (short)40000.0f; }")
+    result = generate(cfg, a).result
+    assert not result.blocked and result.path_count == 0
+
+
+def test_unsupported_operation_is_not_reported_as_infeasible(tmp_path):
+    cfg, a = _analyse_source(tmp_path, "int subject(int *p) { return *p; }")
+    g = generate(cfg, a)
+    assert g.result.path_count == 0 and not g.result.scenarios
+    assert g.result.blocked["loc"].endswith("source.c:1")
+    assert "unsupported type" in g.result.blocked["reason"]
+
+
+def test_inline_cpputest_mock_hook_preserves_mock_order(tmp_path):
+    cfg, a = _analyse_source(tmp_path, """
+        typedef struct { int (*returnIntValueOrDefault)(int); } MockActualCall_c;
+        typedef struct { MockActualCall_c *(*actualCall)(const char *); } MockSupport_c;
+        MockSupport_c *mock_c(void);
+        int probe(void);
+        #define CUSTOM_HOOK(x) mock_c()->actualCall("CUSTOM_HOOK")->returnIntValueOrDefault(x)
+        int subject(void) { int value = probe(); return CUSTOM_HOOK(value); }
+    """)
+    g = generate(cfg, a)
+    (sc,) = g.result.scenarios
+    assert [ev.name for ev in sc.events] == ["probe", "CUSTOM_HOOK"]
+    assert sc.expected_ret == sc.events[-1].ret_value
+    assert 'expectOneCall("CUSTOM_HOOK")' in g.code

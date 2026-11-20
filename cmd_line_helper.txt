@@ -4,4 +4,17 @@
 # extracts the archive to a temporary folder, reads the PDFs, generates the
 # test cases, then cleans up automatically.
 
-python generator.py lsout3_dtc.c --pdf-dir C:\Users\A0095101\Downloads\KWPC_man_old\man_old\quality\test\lsout3_dtc\lsout3_dtc.zip\lsout3_dtc\Test_details
+python generator.py lsout3_out.c --pdf-dir C:\Users\A0095101\Downloads\KWPC_man_old\man_old\quality\test\lsout3_dtc\lsout3_dtc.zip\lsout3_dtc\Test_details
+
+
+##Include Directory
+C:\Users\A0095101\Desktop\safetyut-kwpc06\workspace\partitions\safety1\src\app\out,C:\Users\A0095101\Desktop\safetyut-kwpc06\workspace\partitions\safety1\test\app\lsout3_out,C:\Users\A0095101\Desktop\safetyut-kwpc06\workspace\partitions\safety1\tools\cpputest\include,C:\msys64\clang64\lib\clang\21\include,C:\msys64\clang64\include
+
+##Target 
+x86_64-w64-windows-gnu
+
+##Definitions
+UNIT_TESTING,WH_EE_TC3,KWPC06,D2_SAMPLE
+
+##Extra Compiler flags
+Not needed now

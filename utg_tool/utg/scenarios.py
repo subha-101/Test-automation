@@ -72,6 +72,7 @@ class GenerationResult:
     truncated: bool
     strategies: list
     unsupported: list = field(default_factory=list)
+    blocked: Optional[dict] = None
 
 
 # ---------------------------------------------------------------------------------------------------------
@@ -222,14 +223,19 @@ class ScenarioGenerator:
         unknown = strategies - set(STRATEGIES)
         if unknown:
             raise ValueError(f"unsupported strategy {sorted(unknown)}; implemented: {STRATEGIES} (MC/DC is planned for phase 3)")
+        diagnostic = next((u for u in self.ir.unsupported if u["kind"] == "diagnostic"), None)
+        if diagnostic:
+            return GenerationResult([], [], [], 0, False, sorted(strategies), list(self.ir.unsupported), diagnostic)
         self.cmap = ctx_map(self.ir)
         ex = SymbolicExecutor(self.ir, self.cfg)
+        self.ctx = ex.ctx
         try:
             paths = ex.explore()
         except Unsupported as exc:
-            self.ir.unsupported.append({"kind": "execution", "loc": "", "reason": str(exc),
-                                        "effect": "No scenarios can be generated for this function."})
-            return GenerationResult([], [], [], 0, False, sorted(strategies), list(self.ir.unsupported))
+            blocked = {"kind": "execution", "loc": exc.loc, "reason": str(exc),
+                       "effect": "No scenarios can be generated for this function."}
+            return GenerationResult([], [], [], 0, False, sorted(strategies), [*self.ir.unsupported, blocked], blocked)
+        paths = [p for p in paths if not p.defined or self._solve_path(p, [], []) is not None]
         targets = build_targets(self.ir, strategies)
         covered: set = set()
         raw: list = []          # (goal_key, path, model, achieved)
@@ -241,7 +247,7 @@ class ScenarioGenerator:
             cands = self._candidates(tg, paths, covered)
             done = False
             for path, extra in cands:
-                model = solve(path.pc + path.domain + extra, path.symbols, self.cfg, self._soft(path, tg))
+                model = self._solve_path(path, extra, self._soft(path, tg))
                 if model is None:
                     continue
                 ach = _achieved(path, model, self.cmap)
@@ -256,11 +262,25 @@ class ScenarioGenerator:
                                   if cands else "no execution path evaluates this condition"))
 
         keep = self._drop_redundant(raw)
+        if not targets:
+            for path in paths:
+                model = self._solve_path(path, [], self._soft(path, None))
+                if model is not None:
+                    keep = [(("smoke",), path, model, set())]
+                    break
         scenarios = [self._materialise(i + 1, *r) for i, r in enumerate(keep)]
         return GenerationResult(scenarios, targets, uncovered, len(paths), ex.truncated, sorted(strategies),
                                 list(self.ir.unsupported))
 
     # ------------------------------------------------------------------
+    def _solve_path(self, path: Path, extra: list, soft: list) -> Optional[z3.ModelRef]:
+        constraints = path.pc + path.domain + extra
+        # A concrete model can check costly FP conversion ranges without bit-blasting them.
+        model = solve(constraints, path.symbols, self.cfg, self.ctx, soft)
+        if model is not None and not all(z3.is_true(model.eval(c, model_completion=True)) for c in path.defined):
+            return solve(constraints + path.defined, path.symbols, self.cfg, self.ctx, soft)
+        return model
+
     def _candidates(self, tg: Target, paths: list, covered: set) -> list:
         out = []
         kind = tg.key[0]
@@ -290,12 +310,12 @@ class ScenarioGenerator:
             return -s
         return sorted(out, key=score)          # sorted() is stable
 
-    def _soft(self, path: Path, tg: Target) -> list:
+    def _soft(self, path: Path, tg: Optional[Target]) -> list:
         """Preferences: (1) no incidental wrap-around, (2) written-only state starts different from its result."""
-        soft = [z3.Not(w.cond) for w in path.wraps if not (tg.key[0] == "W" and tg.key[1] == w.wrap_id)]
+        soft = [z3.Not(w.cond) for w in path.wraps if not (tg and tg.key[0] == "W" and tg.key[1] == w.wrap_id)]
         for name in path.witness:
             init, fin = path.inputs[name], path.final[name]
-            soft.append(z3.Not(z3.fpEQ(init.z, fin.z)) if init.ti.kind == "float" else init.z != fin.z)
+            soft.append(z3.Not(z3.fpEQ(init.z, fin.z, ctx=self.ctx)) if init.ti.kind == "float" else init.z != fin.z)
         return soft
 
     @staticmethod
@@ -314,7 +334,7 @@ class ScenarioGenerator:
             info = self.ir.calls[e.name]
             args = [(info.params[i][0] if i < len(info.params) else f"arg{i}",
                      info.params[i][1].spelling if i < len(info.params) else "",
-                     model_value(model, a)) for i, a in enumerate(e.args)]
+                     a.address if a.address is not None else model_value(model, a)) for i, a in enumerate(e.args)]
             events.append(EventValue(
                 name=e.name, order=e.order, args=args,
                 ret_value=model_value(model, e.ret) if e.ret is not None else None,
@@ -330,6 +350,8 @@ class ScenarioGenerator:
         return sc
 
     def _describe(self, sc: Scenario) -> str:
+        if sc.goals[0] == ("smoke",):
+            return "Straight-line execution: verify the observable effects."
         text = {t.key: t.text for t in build_targets(self.ir, set(STRATEGIES))}
         goal = text.get(sc.goals[0], str(sc.goals[0]))
         path = ", ".join(f"{c}={'TRUE' if o else 'FALSE'}" for c, o in sc.decisions)

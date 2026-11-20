@@ -76,24 +76,26 @@ def _candidates(ti: TypeInfo, cfg: ProjectConfig, pinned: list) -> list:
 
 
 def _const(v: Val, x):
-    return z3.FPVal(float(x), fp_sort(v.ti)) if v.ti.kind == "float" else bv_const(int(x), v.ti.bits)
+    ctx = v.z.ctx
+    return z3.FPVal(float(x), fp_sort(v.ti, ctx), ctx=ctx) if v.ti.kind == "float" else bv_const(int(x), v.ti.bits, ctx)
 
 
 def _pin(v: Val, x):
     c = _const(v, x)
     # exact bit pattern: fpEQ would accept -0.0 for 0.0
-    return z3.fpToIEEEBV(v.z) == z3.fpToIEEEBV(c) if v.ti.kind == "float" else v.z == c
+    return z3.fpToIEEEBV(v.z, ctx=v.z.ctx) == z3.fpToIEEEBV(c, ctx=v.z.ctx) if v.ti.kind == "float" else v.z == c
 
 
-def solve(constraints: list, symbols: dict, cfg: ProjectConfig, soft: Optional[list] = None) -> Optional[z3.ModelRef]:
+def solve(constraints: list, symbols: dict, cfg: ProjectConfig, ctx: z3.Context,
+          soft: Optional[list] = None) -> Optional[z3.ModelRef]:
     """Return a fully pinned, deterministic model satisfying `constraints`; None if unsatisfiable."""
-    base = z3.Solver()
+    base = z3.Solver(ctx=ctx)
     base.add(*constraints)
     if base.check() != z3.sat:
         return None
     fixed: list = []
     for c in (soft or []):                       # preferences, kept in order while they stay satisfiable
-        t = z3.Solver()
+        t = z3.Solver(ctx=ctx)
         t.add(*constraints, *fixed, c)
         if t.check() == z3.sat:
             fixed.append(c)
@@ -103,7 +105,7 @@ def solve(constraints: list, symbols: dict, cfg: ProjectConfig, soft: Optional[l
         bucket = pinned["float" if val.ti.kind == "float" else "int"]
         chosen = None
         for x in _candidates(val.ti, cfg, bucket):
-            s = z3.Solver()
+            s = z3.Solver(ctx=ctx)
             s.add(*constraints, *fixed, _pin(val, x))
             if s.check() == z3.sat:
                 chosen = x
@@ -112,14 +114,14 @@ def solve(constraints: list, symbols: dict, cfg: ProjectConfig, soft: Optional[l
             fixed.append(_pin(val, chosen))
             bucket.append(chosen)
             continue
-        o = z3.Optimize()                        # deterministic last resort: unique minimal bit pattern
+        o = z3.Optimize(ctx=ctx)                 # deterministic last resort: unique minimal bit pattern
         o.add(*constraints, *fixed)
-        o.minimize(z3.fpToIEEEBV(val.z) if val.ti.kind == "float" else z3.ZeroExt(0, val.z))
+        bits_expr = z3.fpToIEEEBV(val.z, ctx=ctx) if val.ti.kind == "float" else val.z
+        o.minimize(bits_expr)
         assert o.check() == z3.sat
         m = o.model()
-        bits = m.eval(z3.fpToIEEEBV(val.z) if val.ti.kind == "float" else val.z, model_completion=True)
-        fixed.append((z3.fpToIEEEBV(val.z) if val.ti.kind == "float" else val.z) == bits)
-    final = z3.Solver()
+        fixed.append(bits_expr == m.eval(bits_expr, model_completion=True))
+    final = z3.Solver(ctx=ctx)
     final.add(*constraints, *fixed)
     assert final.check() == z3.sat
     return final.model()

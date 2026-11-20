@@ -95,16 +95,16 @@ def _find_cpputest(cfg: ProjectConfig) -> Optional[str]:
     return None
 
 
-def _lib_dir(home: str) -> Optional[str]:
-    for d in ("lib", "lib64", "lib/x86_64-linux-gnu"):
+def _lib_dir(home: str, lib: str = "CppUTest") -> Optional[str]:
+    for d in ("lib", "lib64", "lib/x86_64-linux-gnu", os.path.join("build", "src", lib)):
         p = os.path.join(home, d)
-        if os.path.isfile(os.path.join(p, "libCppUTest.a")) or os.path.isfile(os.path.join(p, "libCppUTest.so")):
+        if any(os.path.isfile(os.path.join(p, f"lib{lib}{ext}")) for ext in (".a", ".so")):
             return p
     return None
 
 
 def build_harness(ir: FunctionIR, cfg: ProjectConfig, test_file: str) -> str:
-    L = ['#include "CppUTest/CommandLineTestRunner.h"', '#include "CppUTest/TestHarness.h"',
+    L = ['#include <cstdlib>', '#include <cstdio>', '#include "CppUTest/CommandLineTestRunner.h"', '#include "CppUTest/TestHarness.h"',
          '#include "CppUTestExt/MockSupport.h"', 'extern "C" {']
     L += [f'#include "{os.path.abspath(h)}"' for h in cfg.headers]
     if cfg.prelude_file:
@@ -112,12 +112,14 @@ def build_harness(ir: FunctionIR, cfg: ProjectConfig, test_file: str) -> str:
     L += [f'#include "{os.path.abspath(cfg.source_file)}"', "}", ""]
     L.append("/* accessor pointers (convention from the project configuration) */")
     for v in ir.variables.values():
-        if v.scope in ("global", "static") and v.test_access == "pointer":
-            ident = access_expr(v, cfg).lstrip("*")
-            L.append(f"static {v.type.spelling} * const {ident} = &{v.name};")
+        if v.scope in ("global", "static") and "." not in v.name:
+            access = access_expr(v, cfg)
+            ident = access[1:] if access and access.startswith("*") else ""
+            if ident.isidentifier() and ident not in ir.source_accessors:
+                L.append(f"static decltype(&{v.name}) const {ident} = &{v.name};")
     L += ["", "/* mock implementations derived from the declarations */"]
     for c in ir.calls.values():
-        if not c.requires_mock:
+        if not c.requires_mock or c.inline_mock:
             continue
         params = ", ".join(f"{t.spelling} {n}" for n, t in c.params) or "void"
         L.append(f"{c.return_type.spelling} {c.name}({params})")
@@ -125,7 +127,10 @@ def build_harness(ir: FunctionIR, cfg: ProjectConfig, test_file: str) -> str:
         chain = f'mock().actualCall("{c.name}")'
         if cfg.verify_params:
             for n, t in c.params:
-                cast = f"({cfg.bool_param_cast})" if t.spelling in cfg.boolean_types and cfg.bool_param_cast else "(int)" if t.bits <= 16 else ""
+                if t.kind == "pointer":
+                    chain += f'.withConstPointerParameter("{n}", static_cast<const void*>({n}))'
+                    continue
+                cast = f"({cfg.bool_param_cast})" if t.spelling in cfg.boolean_types and cfg.bool_param_cast else "(int)" if t.is_numeric and t.bits <= 16 else ""
                 chain += f'.withParameter("{n}", {cast}{n})'
         if c.return_type.kind == "void":
             L.append(f"    {chain};")
@@ -136,6 +141,11 @@ def build_harness(ir: FunctionIR, cfg: ProjectConfig, test_file: str) -> str:
         else:
             L.append(f"    return ({c.return_type.spelling}){chain}.returnLongIntValue();")
         L += ["}", ""]
+    for c in ir.link_dependencies:
+        params = ", ".join(t.spelling for _, t in c.params) or "void"
+        L += [f"{c.return_type.spelling} {c.name}({params})", "{",
+              f'    std::fputs("Unexpected call outside the selected function: {c.name}\\n", stderr);',
+              "    std::abort();", "}", ""]
     L += [f'#include "{os.path.abspath(test_file)}"', "",
           "int main(int argc, char** argv)", "{", "    return CommandLineTestRunner::RunAllTests(argc, argv);", "}", ""]
     return "\n".join(L)
@@ -151,19 +161,21 @@ def compile_and_run(ir: FunctionIR, cfg: ProjectConfig, code: str, workdir: str,
         fh.write(code)
     home = _find_cpputest(cfg)
     gxx = shutil.which("g++")
-    if not home or not gxx or not _lib_dir(home):
+    core, ext = (_lib_dir(home), _lib_dir(home, "CppUTestExt")) if home else (None, None)
+    if not home or not gxx or not core or not ext:
         rep.skipped_reason = ("CppUTest or g++ not found (set CPPUTEST_HOME / cpputest_home): "
                               "compilation and execution were NOT performed")
         return rep
     harness = os.path.join(workdir, "harness.cpp")
     with open(harness, "w") as fh:
         fh.write(build_harness(ir, cfg, test_file))
-    exe = os.path.join(workdir, "run_tests")
-    cmd = [gxx, "-std=c++14", "-O0", "-g", "-fno-inline", "-w", "-I" + os.path.join(home, "include")]
+    exe = os.path.join(workdir, "run_tests.exe" if os.name == "nt" else "run_tests")
+    cmd = [gxx, "-std=c++14", "-O0", "-g", "-fno-inline",
+           "-w", "-I" + os.path.join(home, "include")]
     cmd += [f"-I{os.path.abspath(d)}" for d in cfg.include_dirs] + [f"-D{d}" for d in cfg.defines]
     if measure_coverage:
         cmd += ["--coverage"]
-    cmd += [harness, "-L" + _lib_dir(home), "-lCppUTestExt", "-lCppUTest", "-o", exe]
+    cmd += [harness, "-L" + ext, "-L" + core, "-lCppUTestExt", "-lCppUTest", "-o", exe]
     for fn in os.listdir(workdir):
         if fn.endswith((".gcda", ".gcno")):
             os.remove(os.path.join(workdir, fn))
@@ -172,19 +184,24 @@ def compile_and_run(ir: FunctionIR, cfg: ProjectConfig, code: str, workdir: str,
     rep.compiled = p.returncode == 0
     if not rep.compiled:
         return rep
-    r = subprocess.run([exe, "-v"], capture_output=True, text=True, cwd=workdir, timeout=120)
-    rep.run_log = (r.stdout + r.stderr).strip()
-    m = re.search(r"OK \((\d+) tests", rep.run_log)
-    if m:
-        rep.tests_run, rep.tests_failed, rep.executed = int(m.group(1)), 0, True
-    else:
-        m = re.search(r"Errors \((\d+) failures, (\d+) tests", rep.run_log)
-        rep.executed = False
-        if m:
-            rep.tests_failed, rep.tests_run = int(m.group(1)), int(m.group(2))
-        rep.failed_tests = sorted(set(re.findall(r"^TEST\((\w+), (\w+)\)\s*-", rep.run_log, flags=re.M)))
-        rep.failed_tests = re.findall(r"(Testcase_\w+)", "\n".join(
-            l for l in rep.run_log.splitlines() if "Failure in" in l))
+    cases = re.findall(r"^TEST\(\s*(\w+)\s*,\s*(\w+)\s*\)", code, flags=re.M)
+    isolated = any(v.scope == "static_local" for v in ir.variables.values())
+    filters = [["-st", f"{group}.{name}"] for group, name in cases] if isolated else [[]]
+    logs = []
+    rep.executed = bool(cases)
+    for args in filters:
+        r = subprocess.run([exe, "-v", *args], capture_output=True, text=True, cwd=workdir, timeout=120)
+        log = (r.stdout + r.stderr).strip()
+        logs.append(log)
+        counts = re.search(r"(\d+) ran,", log)
+        ran = int(counts.group(1)) if counts else 0
+        rep.tests_run += ran
+        failures = re.search(r"Errors \((\d+) failures", log)
+        if failures:
+            rep.tests_failed += int(failures.group(1))
+            rep.failed_tests.extend(re.findall(r"Failure in .*?\([^,]+,\s*(\w+)\)", log))
+        rep.executed &= (r.returncode == 0 and ran == (1 if isolated else len(cases)))
+    rep.run_log = "\n\n".join(logs)
     if measure_coverage and rep.compiled:
         rep.measured = _gcov(ir, cfg, workdir)
     return rep

@@ -47,6 +47,7 @@ if page == PAGES[0]:
     defs = st.text_input("Definitions (comma separated, e.g. UNIT_TESTING)")
     flags = st.text_input("Extra compiler flags")
     target = st.text_input("Clang --target (empty = host ABI)", "armv7m-none-eabi")
+    verify_params = st.checkbox("Verify mock parameters", help="Off: expect calls and return values without checking arguments.")
     if st.button("Create project from uploads") and c:
         d = tempfile.mkdtemp(prefix="utg_")
         def save(f):
@@ -55,7 +56,7 @@ if page == PAGES[0]:
                             prelude_file=save(prelude) if prelude else "",
                             include_dirs=[x.strip() for x in incs.split(",") if x.strip()] + [d],
                             defines=[x.strip() for x in defs.split(",") if x.strip()],
-                            extra_flags=flags.split(), target=target,
+                            extra_flags=flags.split(), target=target, verify_params=verify_params,
                             includes=['#include "CppUTest/TestHarness.h"', '#include "CppUTestExt/MockSupport.h"'])
         S.cfg = cfg
         for k in ("parser", "analysis", "generated", "validation", "fn"):
@@ -141,6 +142,13 @@ elif page == PAGES[3]:
         S.pop("validation", None)
     if "generated" in S:
         g = S.generated; res = g.result
+        if res.blocked:
+            loc = f" ({res.blocked['loc']})" if res.blocked["loc"] else ""
+            reason = "a Clang parse error" if res.blocked["kind"] == "diagnostic" else "an unsupported operation"
+            st.error(f"Generation blocked by {reason}{loc}: {res.blocked['reason']}")
+            st.stop()
+        if res.path_count == 0:
+            st.warning("No feasible paths found.")
         keep = []
         st.write(f"**{len(res.scenarios)} scenarios** from {res.path_count} feasible paths")
         for sc in res.scenarios:
@@ -158,6 +166,7 @@ elif page == PAGES[3]:
             res.scenarios = keep
             from utg.codegen import generate_test_file
             g.code, g.report = generate_test_file(S.analysis.ir, cfg, res)
+            S.pop("validation", None)
             st.success("Removed. Coverage tables on page 6 now reflect the reduced set.")
         st.caption("Editing/adding scenarios needs concrete re-execution of the model and is planned for phase 2; "
                    "the generated code on page 5 is fully editable meanwhile.")
@@ -170,6 +179,9 @@ elif page == PAGES[4]:
     if "generated" not in S:
         st.info("Generate scenarios on page 4."); st.stop()
     g = S.generated
+    if g.result.blocked:
+        st.error("No test file is available. See the generation error on page 4.")
+        st.stop()
     for n in g.report.notes:
         st.warning(n)
     for name, why in g.report.blocked:
@@ -185,7 +197,10 @@ else:
     if "generated" not in S:
         st.info("Generate scenarios first."); st.stop()
     g = S.generated; ir = S.analysis.ir
-    code = S.get("edited_code") or g.code
+    if g.result.blocked:
+        st.error("No tests to validate. See the generation error on page 4.")
+        st.stop()
+    code = S.edited_code if S.get("edited_for") == g.code else g.code
     if st.button("Run static validation + compile + execute (CppUTest, gcov)"):
         rep = compile_and_run(ir, cfg, code, tempfile.mkdtemp(prefix="utg_run_"))
         rep.static = static_validate(ir, cfg, g.result, code)

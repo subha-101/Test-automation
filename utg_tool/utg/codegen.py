@@ -27,6 +27,8 @@ def classify_access(ir: FunctionIR, cfg: ProjectConfig) -> list:
     issues = []
     for v in ir.variables.values():
         if v.scope not in ("global", "static"):
+            if v.scope == "static_local":
+                v.test_access = "fresh process (initializer only)"
             continue
         a = access_expr(v, cfg)
         if a is None:
@@ -34,12 +36,12 @@ def classify_access(ir: FunctionIR, cfg: ProjectConfig) -> list:
             issues.append(f"'{v.name}' ({v.scope}) is not accessible from the test file: configure an accessor "
                           f"(access_overrides) or a test hook; scenarios that need it cannot be generated")
         else:
-            v.test_access = "pointer" if a.startswith("*") else "direct"
+            v.test_access = "pointer" if a.startswith(("*", "(*")) else "direct"
     return issues
 
 
 def _wrap(prefix: str, text: str, width: int = 112) -> list:
-    return textwrap.wrap(text, width=width - len(prefix), subsequent_indent="  ") or [""]
+    return textwrap.wrap(text.replace("*/", "* /"), width=width - len(prefix), subsequent_indent="  ") or [""]
 
 
 def build_scenario_ctx(ir: FunctionIR, cfg: ProjectConfig, sc: Scenario) -> dict:
@@ -84,7 +86,7 @@ def build_scenario_ctx(ir: FunctionIR, cfg: ProjectConfig, sc: Scenario) -> dict
         lit = c_value(value, v.type, cfg)
         acc = access_expr(v, cfg)
         if acc is None:
-            continue
+            raise ValueError(f"output '{name}' is inaccessible from the test file")
         var_checks.append(f"DOUBLES_EQUAL({lit}, {acc}, {cfg.float_tolerance});" if v.type.kind == "float"
                           else f"CHECK_EQUAL({lit}, {acc});")
         post_txt.append(f"{name} == {lit}")
@@ -106,7 +108,7 @@ def build_scenario_ctx(ir: FunctionIR, cfg: ProjectConfig, sc: Scenario) -> dict
         pre += _wrap(" * \\pre ", "Mocks (in call order): " + "; ".join(mock_txt) + ".")
     post = _wrap(" * \\post ", f"Return value {c_value(sc.expected_ret, rt, cfg) if rt.kind != 'void' else '(void)'}"
                  + ("; " + "; ".join(post_txt) if post_txt else "") + ".")
-    brief = textwrap.wrap(sc.description, width=100)
+    brief = textwrap.wrap(sc.description.replace("*/", "* /"), width=100)
     return {
         "name": sc.name, "brief": ("\n * ".join(brief)), "pre": pre, "post": post, "init_lines": init_lines,
         "mock_lines": mock_flat, "call_line": call_line, "ret_checks": ret_checks, "var_checks": var_checks,
@@ -116,6 +118,9 @@ def build_scenario_ctx(ir: FunctionIR, cfg: ProjectConfig, sc: Scenario) -> dict
 def generate_test_file(ir: FunctionIR, cfg: ProjectConfig, result: GenerationResult) -> tuple:
     """Returns (cpp_source, CodegenReport)."""
     report = CodegenReport()
+    if any(v.scope == "static_local" for v in ir.variables.values()):
+        report.notes.append("function-local statics start at their C initializers; run each case in a fresh "
+                            "process (CppUTest -st <group>.<test>)")
     report.notes += [f"access to file-scope variables follows the configured convention "
                      f"(static: {cfg.static_access}, pattern '{cfg.pointer_pattern}'); the accessors were NOT verified "
                      f"against your project"] if any(v.test_access == "pointer" for v in ir.variables.values()) else []

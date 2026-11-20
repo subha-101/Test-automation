@@ -227,6 +227,9 @@ class CParser:
             name=fn.spelling, return_type=self.conv_type(fn.result_type),
             args=[(a.spelling, self.conv_type(a.type)) for a in fn.get_arguments()],
             signature=self._signature(fn), loc=_loc(fn), diagnostics=list(self.diagnostics))
+        ir.source_accessors = [c.spelling for c in self.tu.cursor.get_children()
+                               if c.kind == CK.VAR_DECL and c.is_definition() and self._in_source(c)
+                               and c.type.get_canonical().kind == TK.POINTER]
         self.ir = ir
         for n, t in ir.args:
             ir.variables[n] = VarInfo(name=n, type=t, scope="param", is_pointer=(t.kind == "pointer"))
@@ -237,6 +240,21 @@ class CParser:
         for e in [d for d in ir.diagnostics if d["severity"] in ("error", "fatal")]:
             self._unsupported("diagnostic", e["loc"], e["message"],
                               "Clang reported an error: parse results may be incomplete.")
+        dependencies = {}
+        for definition in self.tu.cursor.get_children():
+            if definition.kind != CK.FUNCTION_DECL or not definition.is_definition() or not self._in_source(definition):
+                continue
+            for call in definition.walk_preorder():
+                if call.kind != CK.CALL_EXPR or call.spelling in ir.calls or call.spelling == "mock_c":
+                    continue
+                decl = call.referenced
+                if decl is None or decl.kind != CK.FUNCTION_DECL or decl.get_definition() is not None:
+                    continue
+                if decl.spelling.isidentifier() and not decl.type.is_function_variadic():
+                    dependencies[decl.spelling] = CallInfo(
+                        decl.spelling, self.conv_type(decl.result_type),
+                        [(a.spelling, self.conv_type(a.type)) for a in decl.get_arguments()], [])
+        ir.link_dependencies = list(dependencies.values())
         return ir
 
     def _unsupported(self, kind: str, loc, reason: str, effect: str) -> None:
@@ -332,9 +350,7 @@ class CParser:
         if ref.kind == CK.PARM_DECL:
             scope = "param"
         elif parent is not None and parent.kind == CK.FUNCTION_DECL:
-            scope = "static" if ref.storage_class == StorageClass.STATIC else "local"
-            if scope == "static":
-                scope = "static"           # function-local static: persistent state
+            scope = "static_local" if ref.storage_class == StorageClass.STATIC else "local"
         else:
             scope = "static" if ref.storage_class == StorageClass.STATIC else "global"
         t = self.conv_type(ref.type)
@@ -421,10 +437,22 @@ class CParser:
             if len(kids) != 1:
                 return self._unsup_expr(c, "member access without base")
             base = self.conv_expr(kids[0], True)
+            if (base.kind == "var_ref" and base.type.kind == "struct" and c.spelling
+                    and kids[0].type.get_canonical().get_declaration().kind == CK.STRUCT_DECL
+                    and c.referenced is not None and not c.referenced.is_bitfield()):
+                # Track scalar fields independently, without materialising the aggregate.
+                name = f"{base.name}.{c.spelling}"
+                owner = self.ir.variables[base.name]
+                ti = self._tinfo(c)
+                self.ir.variables.setdefault(name, VarInfo(name, ti, owner.scope, decl_loc=owner.decl_loc))
+                return self._mk("var_ref", c, name=name)
             if base.kind == "call":
                 self._register_call_members(base, c.spelling)
             return self._mk("member", c, name=c.spelling, children=[base])
         if k == CK.CALL_EXPR:
+            hook = self._cpputest_int_hook(c)
+            if hook is not None:
+                return hook
             args = [self.conv_expr(a) for a in kids[1:]]
             self._register_call(c, value_used, False)
             return self._mk("call", c, name=c.spelling, children=args)
@@ -468,6 +496,44 @@ class CParser:
                 return self._mk("incdec", c, op=op, prefix=prefix, children=[child])
             return self._mk("unary", c, op=op, children=[child])
         return self._unsup_expr(c, f"expression kind {k.name}")
+
+    def _cpputest_int_hook(self, c):
+        """Recognise mock_c()->actualCall("label")->returnIntValueOrDefault(value)."""
+        def unwrap(node):
+            while node.kind in (CK.UNEXPOSED_EXPR, CK.PAREN_EXPR):
+                children = list(node.get_children())
+                if len(children) != 1:
+                    break
+                node = children[0]
+            return node
+
+        def receiver(call, member):
+            if call.kind != CK.CALL_EXPR or call.spelling != member:
+                return None
+            callee = unwrap(next(call.get_children()))
+            if callee.kind != CK.MEMBER_REF_EXPR:
+                return None
+            return unwrap(next(callee.get_children()))
+
+        actual = receiver(c, "returnIntValueOrDefault")
+        support = receiver(actual, "actualCall") if actual is not None else None
+        if support is None or support.kind != CK.CALL_EXPR or support.spelling != "mock_c":
+            return None
+        args, fallback = list(actual.get_arguments()), list(c.get_arguments())
+        if len(args) != 1 or len(fallback) != 1:
+            return None
+        label = unwrap(args[0])
+        text = label.spelling
+        if label.kind != CK.STRING_LITERAL or not text.startswith('"') or not text.endswith('"'):
+            return None
+        name = text[1:-1]
+        if not name or not name.isascii() or not name.isidentifier():
+            return None
+        info = self.ir.calls.setdefault(name, CallInfo(name, self._tinfo(c), [], [], inline_mock=True))
+        if not info.inline_mock:
+            return self._unsup_expr(c, f"inline CppUTest label '{name}' conflicts with a mocked function")
+        info.call_sites.append(_loc(c))
+        return self._mk("mock_hook", c, name=name, children=[self.conv_expr(fallback[0])])
 
     def _register_call_members(self, call_expr: Expr, member: str) -> None:
         ci_ = self.ir.calls.get(call_expr.name)

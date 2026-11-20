@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import math
+from dataclasses import replace
 from typing import Optional
 
 from .config import ProjectConfig
@@ -25,6 +26,8 @@ def c_value(value, ti: Optional[TypeInfo], cfg: ProjectConfig) -> str:
         return float_literal(value) if isinstance(value, float) else str(value)
     if ti.kind == "float":
         return float_literal(float(value), ti.bits)
+    if ti.kind == "pointer" and isinstance(value, str):
+        return f"&{value}"
     if ti.kind == "enum":
         for name, v in ti.enumerators.items():
             if v == value:
@@ -42,6 +45,10 @@ def access_expr(var: VarInfo, cfg: ProjectConfig) -> Optional[str]:
         return None
     if rule:
         return rule.format(name=var.name)
+    if "." in var.name:
+        root, field = var.name.split(".", 1)
+        base = access_expr(replace(var, name=root), cfg)
+        return None if base is None else f"({base}).{field}"
     mode = cfg.static_access if var.scope == "static" else cfg.global_access
     if mode == "pointer":
         return cfg.pointer_pattern.format(name=var.name)

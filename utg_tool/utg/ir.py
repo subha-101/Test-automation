@@ -94,6 +94,7 @@ class CallInfo:
     return_used: bool = False     # value of the call feeds the function's logic
     void_cast: bool = False
     result_members: list = field(default_factory=list)  # struct members consumed from the return value
+    inline_mock: bool = False                            # source already calls CppUTest for this event
 
 
 @dataclass
@@ -153,6 +154,8 @@ class FunctionIR:
     return_values: list = field(default_factory=list)     # possible literal / enumerator returns
     unsupported: list = field(default_factory=list)       # [{kind, loc, reason, effect}]
     diagnostics: list = field(default_factory=list)       # [{severity, message, loc}]
+    source_accessors: list = field(default_factory=list)  # source-defined pointer names
+    link_dependencies: list = field(default_factory=list)  # other external calls in the included C file
 
     def to_dict(self) -> dict:
         return asdict(self)

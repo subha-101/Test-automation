@@ -25,7 +25,7 @@ INT_BITS = 32          # width of `int` on the configured target (ARM Cortex-M)
 
 
 class Unsupported(Exception):
-    pass
+    loc = ""
 
 
 # ---------------------------------------------------------------------------------------------------------
@@ -37,47 +37,67 @@ class Val:
     ti: TypeInfo
     b: object = None                 # z3 Bool for comparison / logical results (kept to avoid If wrapping)
     struct_of: Optional[tuple] = None  # (callee, call_no) when the value is a struct returned by a mock
+    address: Optional[str] = None
 
 
-def fp_sort(ti: TypeInfo):
-    return z3.Float32() if ti.bits == 32 else z3.Float64()
+def fp_sort(ti: TypeInfo, ctx: z3.Context):
+    return z3.Float32(ctx) if ti.bits == 32 else z3.Float64(ctx)
 
 
-def mk_symbol(name: str, ti: TypeInfo):
+def mk_symbol(name: str, ti: TypeInfo, ctx: z3.Context):
     if ti.kind == "float":
-        return z3.FP(name, fp_sort(ti))
-    return z3.BitVec(name, ti.bits)
+        return z3.FP(name, fp_sort(ti, ctx))
+    return z3.BitVec(name, ti.bits, ctx)
 
 
-def bv_const(value: int, bits: int):
-    return z3.BitVecVal(value & ((1 << bits) - 1), bits)
+def bv_const(value: int, bits: int, ctx: z3.Context):
+    return z3.BitVecVal(value & ((1 << bits) - 1), bits, ctx)
 
 
 INT_TI = TypeInfo(spelling="int", canonical="int", kind="int", bits=INT_BITS, signed=True)
 
 
 def truth(v: Val):
+    if v.ti.kind == "pointer":
+        raise Unsupported("pointer used as a condition")
     if v.b is not None:
         return v.b
     if v.ti.kind == "float":
-        return z3.Not(z3.fpEQ(v.z, z3.FPVal(0.0, fp_sort(v.ti))))
-    return v.z != z3.BitVecVal(0, v.ti.bits)
+        ctx = v.z.ctx
+        return z3.Not(z3.fpEQ(v.z, z3.FPVal(0.0, fp_sort(v.ti, ctx), ctx=ctx), ctx=ctx))
+    return v.z != bv_const(0, v.ti.bits, v.z.ctx)
 
 
 def from_bool(b, ti: TypeInfo = INT_TI) -> Val:
-    return Val(z3.If(b, bv_const(1, ti.bits), bv_const(0, ti.bits)), ti, b=b)
+    return Val(z3.If(b, bv_const(1, ti.bits, b.ctx), bv_const(0, ti.bits, b.ctx)), ti, b=b)
 
 
-def convert(v: Val, to: TypeInfo) -> Val:
+def convert(v: Val, to: TypeInfo, st=None) -> Val:
+    if v.address is not None:
+        if to.kind == "pointer":
+            return Val(None, to, address=v.address)
+        raise Unsupported(f"address converted to {to.spelling}")
     if v.struct_of is not None:
         raise Unsupported("struct value used as a whole")
     if to.kind == "void":
         return Val(None, to)
     if to.kind == "bool":
-        return Val(z3.If(truth(v), bv_const(1, 8), bv_const(0, 8)), to, b=truth(v))
+        return from_bool(truth(v), to)
     if to.kind in ("int", "enum"):
         if v.ti.kind == "float":
-            raise Unsupported("float -> integer conversion (out-of-range behaviour is undefined in C)")
+            if st is None or to.kind != "int" or v.ti.bits not in (32, 64) or to.bits > 32:
+                raise Unsupported(f"float -> {to.spelling} conversion")
+            # Truncation toward zero is defined only when the truncated value fits.
+            lo = -(1 << (to.bits - 1)) if to.signed else 0
+            hi = (1 << (to.bits - int(bool(to.signed))))
+            ctx = v.z.ctx
+            double = z3.Float64(ctx)
+            wide = v.z if v.ti.bits == 64 else z3.fpToFP(z3.RNE(ctx), v.z, double, ctx=ctx)
+            st.defined.extend([z3.fpGT(wide, z3.FPVal(lo - 1, double, ctx=ctx), ctx=ctx),
+                               z3.fpLT(wide, z3.FPVal(hi, double, ctx=ctx), ctx=ctx)])
+            st.assumptions.append(f"float -> {to.spelling} is representable after truncation")
+            conv = z3.fpToSBV if to.signed else z3.fpToUBV
+            return Val(conv(z3.RTZ(ctx), v.z, z3.BitVecSort(to.bits, ctx), ctx=ctx), to)
         m, n = v.z.size(), to.bits
         if n == m:
             z = v.z
@@ -87,12 +107,13 @@ def convert(v: Val, to: TypeInfo) -> Val:
             z = z3.Extract(n - 1, 0, v.z)
         return Val(z, to)
     if to.kind == "float":
-        s = fp_sort(to)
+        ctx = v.z.ctx
+        s = fp_sort(to, ctx)
         if v.ti.kind == "float":
-            return v if v.ti.bits == to.bits else Val(z3.fpToFP(z3.RNE(), v.z, s), to)
+            return v if v.ti.bits == to.bits else Val(z3.fpToFP(z3.RNE(ctx), v.z, s, ctx=ctx), to)
         if v.ti.signed:
-            return Val(z3.fpSignedToFP(z3.RNE(), v.z, s), to)
-        return Val(z3.fpToFPUnsigned(z3.RNE(), v.z, s), to)
+            return Val(z3.fpSignedToFP(z3.RNE(ctx), v.z, s, ctx=ctx), to)
+        return Val(z3.fpToFPUnsigned(z3.RNE(ctx), v.z, s, ctx=ctx), to)
     raise Unsupported(f"conversion to {to.spelling}")
 
 
@@ -163,6 +184,7 @@ class Path:
     assumptions: list = field(default_factory=list)
     wraps: list = field(default_factory=list)
     witness: list = field(default_factory=list)     # variables written but not read first: free initial value
+    defined: list = field(default_factory=list)     # preconditions for operations with undefined behavior
 
 
 class _State:
@@ -181,6 +203,7 @@ class _State:
         self.todo: list = []
         self.assumptions: list = []
         self.wraps: list = []
+        self.defined: list = []
 
     def fork(self) -> "_State":
         n = _State()
@@ -190,11 +213,12 @@ class _State:
         n.call_no, n.ret, n.todo = dict(self.call_no), self.ret, list(self.todo)
         n.assumptions = list(self.assumptions)
         n.wraps = list(self.wraps)
+        n.defined = list(self.defined)
         return n
 
 
 def has_side_effects(e: Expr) -> bool:
-    if e.kind in ("assign", "incdec", "call"):
+    if e.kind in ("assign", "incdec", "call", "mock_hook"):
         return True
     return any(has_side_effects(c) for c in e.children)
 
@@ -205,20 +229,22 @@ def has_side_effects(e: Expr) -> bool:
 class SymbolicExecutor:
     def __init__(self, ir: FunctionIR, cfg: ProjectConfig) -> None:
         self.ir, self.cfg = ir, cfg
+        # Concurrent Streamlit sessions must not share Z3's default native context.
+        self.ctx = z3.Context()
         self.atom_ids = {id(a.expr): a.id for c in ir.conditions for a in c.atoms}
         self.truncated = False
         self.errors: list = []
 
     # ------------------------------------------------------------- symbols
     def _new_symbol(self, st: _State, name: str, ti: TypeInfo, origin: str) -> Val:
-        v = Val(mk_symbol(name, ti), ti)
+        v = Val(mk_symbol(name, ti, self.ctx), ti)
         st.symbols[name] = (v, origin)
         if ti.kind == "float" and self.cfg.assume_finite_floats:
-            st.domain += [z3.Not(z3.fpIsNaN(v.z)), z3.Not(z3.fpIsInf(v.z))]
+            st.domain += [z3.Not(z3.fpIsNaN(v.z, ctx=self.ctx)), z3.Not(z3.fpIsInf(v.z, ctx=self.ctx))]
         if ti.kind == "bool":
-            st.domain.append(z3.ULE(v.z, bv_const(1, 8)))
+            st.domain.append(z3.ULE(v.z, bv_const(1, 8, self.ctx)))
         if ti.kind == "enum" and ti.enumerators:
-            st.domain.append(z3.Or(*[v.z == bv_const(x, ti.bits) for x in sorted(set(ti.enumerators.values()))]))
+            st.domain.append(z3.Or(*[v.z == bv_const(x, ti.bits, self.ctx) for x in sorted(set(ti.enumerators.values()))]))
         return v
 
     def _read_var(self, name: str, st: _State) -> Val:
@@ -227,7 +253,7 @@ class SymbolicExecutor:
         vi = self.ir.variables[name]
         if vi.type.kind not in ("int", "bool", "float", "enum"):
             raise Unsupported(f"variable '{name}' has unsupported type {vi.type.spelling}")
-        if vi.scope == "local":
+        if vi.scope in ("local", "static_local"):
             raise Unsupported(f"local variable '{name}' read before initialisation")
         if vi.is_const and vi.initial_value is not None:          # compile-time constant: fold
             v = self._literal(vi.initial_value, vi.type)
@@ -237,23 +263,30 @@ class SymbolicExecutor:
         st.vars[name] = v
         return v
 
-    @staticmethod
-    def _literal(value, ti: TypeInfo) -> Val:
+    def _literal(self, value, ti: TypeInfo) -> Val:
         if ti.kind == "float":
-            return Val(z3.FPVal(float(value), fp_sort(ti)), ti)
-        return Val(bv_const(int(value), ti.bits), ti)
+            return Val(z3.FPVal(float(value), fp_sort(ti, self.ctx), ctx=self.ctx), ti)
+        return Val(bv_const(int(value), ti.bits, self.ctx), ti)
 
     # ------------------------------------------------------------- expressions
     def ev(self, e: Expr, st: _State) -> Val:
+        try:
+            return self._ev(e, st)
+        except Unsupported as exc:
+            if not exc.loc:
+                exc.loc = str(e.loc)
+            raise
+
+    def _ev(self, e: Expr, st: _State) -> Val:
         k = e.kind
         if k == "int_lit" or k == "float_lit":
             return self._literal(e.value, e.type)
         if k == "enum_const":
-            return Val(bv_const(e.value, e.type.bits), e.type)
+            return self._literal(e.value, e.type)
         if k == "var_ref":
             return self._read_var(e.name, st)
         if k == "cast":
-            return convert(self.ev(e.children[0], st), e.type)
+            return convert(self.ev(e.children[0], st), e.type, st)
         if k == "binary":
             return self._binary(e, st)
         if k == "unary":
@@ -267,14 +300,14 @@ class SymbolicExecutor:
             if old.ti.kind in ("int", "enum"):
                 if old.ti.signed:       # signed overflow is undefined behaviour in C: excluded, and reported
                     lim = (1 << (old.ti.bits - 1)) - 1 if e.op == "++" else -(1 << (old.ti.bits - 1))
-                    st.pc.append(old.z != bv_const(lim, old.ti.bits))
+                    st.pc.append(old.z != bv_const(lim, old.ti.bits, self.ctx))
                     st.assumptions.append(f"signed '{e.text}' does not overflow (undefined behaviour in C)")
                 else:                   # unsigned wrap-around is defined: recorded so it can be targeted explicitly
                     lim = (1 << old.ti.bits) - 1 if e.op == "++" else 0
-                    st.wraps.append(WrapRec(f"W@{e.loc.line}:{e.loc.col}", e.text, old.z == bv_const(lim, old.ti.bits)))
+                    st.wraps.append(WrapRec(f"W@{e.loc.line}:{e.loc.col}", e.text, old.z == bv_const(lim, old.ti.bits, self.ctx)))
             if old.ti.kind == "float":
                 op = z3.fpAdd if e.op == "++" else z3.fpSub
-                new = Val(op(z3.RNE(), old.z, one.z), old.ti)
+                new = Val(op(z3.RNE(self.ctx), old.z, one.z, ctx=self.ctx), old.ti)
             else:
                 new = Val(old.z + one.z if e.op == "++" else old.z - one.z, old.ti)
             self._assign(tgt.name, new, st)
@@ -283,6 +316,11 @@ class SymbolicExecutor:
             return self._assign_expr(e, st)
         if k == "call":
             return self._call(e, st)
+        if k == "mock_hook":
+            if has_side_effects(e.children[0]):
+                raise Unsupported("side effects in the CppUTest default argument")
+            self.ev(e.children[0], st)  # C evaluates the default even when the mock returns an override.
+            return self._call(e, st, args=[])
         if k == "member":
             base = e.children[0]
             if base.kind != "call":
@@ -324,13 +362,18 @@ class SymbolicExecutor:
         return st.vars[lhs.name]
 
     def _unary(self, e: Expr, st: _State) -> Val:
+        if e.op == "&":
+            obj = e.children[0]
+            if obj.kind != "var_ref" or self.ir.variables[obj.name].scope not in ("static", "global"):
+                raise Unsupported("only addresses of accessible file-scope objects are supported as mock arguments")
+            return Val(None, e.type, address=obj.name)
         v = self.ev(e.children[0], st)
         if e.op == "!":
             return from_bool(z3.Not(truth(v)))
         if e.op == "+":
             return v
         if e.op == "-":
-            return Val(z3.fpNeg(v.z) if v.ti.kind == "float" else -v.z, e.type)
+            return Val(z3.fpNeg(v.z, ctx=self.ctx) if v.ti.kind == "float" else -v.z, e.type)
         if e.op == "~":
             return Val(~v.z, e.type)
         raise Unsupported(f"unary operator '{e.op}' (pointers are not modelled yet)")
@@ -340,7 +383,7 @@ class SymbolicExecutor:
             f = {"+": z3.fpAdd, "-": z3.fpSub, "*": z3.fpMul, "/": z3.fpDiv}.get(op)
             if f is None:
                 raise Unsupported(f"float operator '{op}'")
-            return Val(f(z3.RNE(), a.z, b.z), t)
+            return Val(f(z3.RNE(self.ctx), a.z, b.z, ctx=self.ctx), t)
         x, y = a.z, b.z
         if op == "+": z = x + y
         elif op == "-": z = x - y
@@ -353,7 +396,7 @@ class SymbolicExecutor:
         elif op == "|": z = x | y
         elif op == "^": z = x ^ y
         elif op in ("<<", ">>"):
-            st.pc.append(z3.ULT(y, bv_const(t.bits, t.bits)))
+            st.pc.append(z3.ULT(y, bv_const(t.bits, t.bits, self.ctx)))
             st.assumptions.append(f"shift amount of '{op}' is smaller than the operand width")
             z = x << y if op == "<<" else (x >> y if t.signed else z3.LShR(x, y))
         else:
@@ -379,7 +422,7 @@ class SymbolicExecutor:
     def relation(op: str, a: Val, b: Val):
         if a.ti.kind == "float":
             return {"<": z3.fpLT, "<=": z3.fpLEQ, ">": z3.fpGT, ">=": z3.fpGEQ, "==": z3.fpEQ,
-                    "!=": z3.fpNEQ}[op](a.z, b.z)
+                    "!=": z3.fpNEQ}[op](a.z, b.z, ctx=a.z.ctx)
         s = bool(a.ti.signed)
         x, y = a.z, b.z
         return {"<": (x < y) if s else z3.ULT(x, y), "<=": (x <= y) if s else z3.ULE(x, y),
@@ -387,11 +430,14 @@ class SymbolicExecutor:
                 "==": x == y, "!=": x != y}[op]
 
     # ------------------------------------------------------------- calls (mocked)
-    def _call(self, e: Expr, st: _State) -> Val:
+    def _call(self, e: Expr, st: _State, args=None) -> Val:
         info = self.ir.calls.get(e.name)
         if info is None or not info.requires_mock:
             raise Unsupported(f"call to '{e.name}', which is defined in the analysed file (stubbing/inlining not supported yet)")
-        args = [self.ev(a, st) for a in e.children]
+        if args is None:
+            args = [self.ev(a, st) for a in e.children]
+        if any(a.address is not None for a in args):
+            st.assumptions.append(f"mock '{e.name}' does not modify objects through pointer arguments")
         n = st.call_no.get(e.name, 0) + 1
         st.call_no[e.name] = n
         ev = Event(name=e.name, index=n, args=args, order=len(st.events) + 1)
@@ -415,7 +461,9 @@ class SymbolicExecutor:
                 raise Unsupported(f"side effect in the right operand of '{e.op}' (short-circuit)")
             a = self.eval_cond(e.children[0], st, guard)
             g2 = z3.And(guard, a) if e.op == "&&" else z3.And(guard, z3.Not(a))
+            mark = len(st.defined)
             b = self.eval_cond(e.children[1], st, g2)
+            st.defined[mark:] = [z3.Implies(g2, c) for c in st.defined[mark:]]
             return z3.And(a, b) if e.op == "&&" else z3.Or(a, b)
         if e.kind == "unary" and e.op == "!":
             return z3.Not(self.eval_cond(e.children[0], st, guard))
@@ -434,10 +482,31 @@ class SymbolicExecutor:
             st.atoms.append(AtomRec(aid, aid.split(".")[0], guard, v, None, None, tv))
         return tv
 
+    def _condition_states(self, e: Expr, st: _State):
+        """Split only at short-circuit points that change the call trace."""
+        if e.kind == "cast" and e.implicit:
+            yield from self._condition_states(e.children[0], st)
+        elif e.kind == "unary" and e.op == "!":
+            for state, cond in self._condition_states(e.children[0], st):
+                yield state, z3.Not(cond)
+        elif e.kind == "binary" and e.op in ("&&", "||") and has_side_effects(e):
+            lhs, rhs = e.children
+            for state, test in self._condition_states(lhs, st):
+                run_rhs = test if e.op == "&&" else z3.Not(test)
+                if self.feasible(state.pc + [z3.Not(run_rhs)], state.domain):
+                    skip = state.fork()
+                    skip.pc.append(z3.Not(run_rhs))
+                    yield skip, z3.BoolVal(e.op == "||", self.ctx)
+                if self.feasible(state.pc + [run_rhs], state.domain):
+                    run = state.fork()
+                    run.pc.append(run_rhs)
+                    yield from self._condition_states(rhs, run)
+        else:
+            yield st, self.eval_cond(e, st, z3.BoolVal(True, self.ctx))
+
     # ------------------------------------------------------------- path exploration
-    @staticmethod
-    def feasible(pc: list, domain: list) -> bool:
-        s = z3.Solver()
+    def feasible(self, pc: list, domain: list) -> bool:
+        s = z3.Solver(ctx=self.ctx)
         s.add(*pc, *domain)
         return s.check() == z3.sat
 
@@ -450,11 +519,20 @@ class SymbolicExecutor:
             st = stack.pop()
             while True:
                 if not st.todo:
-                    paths.append(self._finish(st, len(paths) + 1))
+                    if self.feasible(st.pc, st.domain):
+                        paths.append(self._finish(st, len(paths) + 1))
                     break
                 s: Stmt = st.todo.pop(0)
                 if s.kind == "decl":
                     vi = self.ir.variables[s.var]
+                    if vi.scope == "static_local":
+                        if not vi.type.is_numeric or (s.expr is not None and vi.initial_value is None):
+                            exc = Unsupported(f"non-scalar or non-constant local static '{s.var}'")
+                            exc.loc = str(s.loc)
+                            raise exc
+                        st.assumptions.append(f"fresh process: local static '{s.var}' starts at its C initializer")
+                        st.vars[s.var] = self._literal(vi.initial_value or 0, vi.type)
+                        continue
                     if s.expr is not None:
                         v = self.ev(s.expr, st)                       # evaluate exactly once
                         st.vars[s.var] = v if v.ti.canonical == vi.type.canonical else convert(v, vi.type)
@@ -464,22 +542,24 @@ class SymbolicExecutor:
                     st.ret = self.ev(s.expr, st) if s.expr is not None else None
                     st.todo = []
                 elif s.kind == "if":
-                    cond = self.eval_cond(s.expr, st, z3.BoolVal(True))
                     forks = []
-                    for outcome in (True, False):
-                        c = cond if outcome else z3.Not(cond)
-                        pc = st.pc + [c]
-                        if self.feasible(pc, st.domain):
-                            f = st.fork()
-                            f.pc = pc
-                            f.decisions.append((s.cond_id, outcome))
-                            f.todo = list(s.then if outcome else s.els) + f.todo
-                            forks.append(f)
+                    for state, cond in self._condition_states(s.expr, st):
+                        for outcome in (True, False):
+                            c = cond if outcome else z3.Not(cond)
+                            pc = state.pc + [c]
+                            if self.feasible(pc, state.domain):
+                                f = state.fork()
+                                f.pc = pc
+                                f.decisions.append((s.cond_id, outcome))
+                                f.todo = list(s.then if outcome else s.els) + f.todo
+                                forks.append(f)
                     for f in reversed(forks):          # depth-first, TRUE branch first
                         stack.append(f)
                     break
                 else:
-                    raise Unsupported(f"statement '{s.text}' ({s.note or s.kind})")
+                    exc = Unsupported(f"statement '{s.text}' ({s.note or s.kind})")
+                    exc.loc = str(s.loc)
+                    raise exc
             if len(paths) >= self.cfg.max_paths:
                 self.truncated = True
                 break
@@ -495,7 +575,7 @@ class SymbolicExecutor:
         return Path(id=pid, decisions=st.decisions, pc=st.pc, domain=st.domain, events=st.events,
                     atoms=st.atoms, final=st.vars, written=st.written, symbols=st.symbols,
                     inputs=st.inputs, ret=st.ret, assumptions=sorted(set(st.assumptions)),
-                    wraps=st.wraps, witness=witness)
+                    wraps=st.wraps, witness=witness, defined=st.defined)
 
 
 # ---------------------------------------------------------------------------------------------------------
@@ -506,7 +586,7 @@ def model_value(model: z3.ModelRef, v: Val):
     if v is None or v.z is None:
         return None
     if v.ti.kind == "float":
-        bits = model.eval(z3.fpToIEEEBV(v.z), model_completion=True).as_long()
+        bits = model.eval(z3.fpToIEEEBV(v.z, ctx=v.z.ctx), model_completion=True).as_long()
         if v.ti.bits == 32:
             return struct.unpack(">f", bits.to_bytes(4, "big"))[0]
         return struct.unpack(">d", bits.to_bytes(8, "big"))[0]
